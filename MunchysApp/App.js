@@ -1,40 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Template from './components/Template';
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Login from "./screens/Login"
+import Register from "./screens/Register"
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Stack = createStackNavigator();
 
-import Template from "./components/Template" 
-
-const App: () => React$Node = () => {
+export default function App() {
   return (
-    <>
-      <SafeAreaView>
-        <Template/>
-      </SafeAreaView>
-    </>
+      <NavigationContainer>
+        <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Login}
+          options={{title: 'Welcome'}}
+        />
+        <Stack.Screen name="Profile" component={Register} />
+      </Stack.Navigator>
+      </NavigationContainer>
   );
-};
+}
 
-
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

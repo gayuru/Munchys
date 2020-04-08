@@ -5,20 +5,28 @@ import {
     View,
     Text,
     StatusBar,
+    Button
 } from 'react-native';
 
 import {
     Colors,
   } from 'react-native/Libraries/NewAppScreen';
 
-const Template = () => {
+const Login = ({navigation}) => {
     return (
         <>
-            <View style={styles.body}>
+        <SafeAreaView>
+        <View style={styles.body}>
                 <View style={styles.sectionContainer}>
-                    <Text style={styles.sectionTitle}>Template Component</Text>
+                    <Text style={styles.sectionTitle}>Login Component</Text>
+                    <Button
+                    title="Go to Jane's profile"
+                    onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
+                    />
                 </View>
             </View>
+        </SafeAreaView>
+            
         </>
       )
 }
@@ -47,4 +55,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default Template;
+export default Login;

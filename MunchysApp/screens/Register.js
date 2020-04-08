@@ -11,7 +11,7 @@ import {
     Colors,
   } from 'react-native/Libraries/NewAppScreen';
 
-const Template = () => {
+const Register = ({navigation}) => {
     return (
         <>
         <SafeAreaView>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default Template;
+export default Register;
