@@ -40,6 +40,7 @@
                                     <constraint firstAttribute="height" constant="43" id="aYT-jm-oBa"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="371" id="f7q-S7-k2E"/>
                                 </constraints>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
                             </textField>
@@ -49,6 +50,7 @@
                                     <constraint firstAttribute="width" constant="371" id="5bT-82-cUM"/>
                                     <constraint firstAttribute="height" constant="43" id="M5g-Iq-bgb"/>
                                 </constraints>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
@@ -88,7 +90,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aAp-cz-kc6" firstAttribute="top" secondItem="fdL-gb-Iwj" secondAttribute="bottom" constant="18" id="48l-1N-m96"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1nN-VR-rAN" secondAttribute="trailing" symbolic="YES" id="7ay-8n-bVo"/>

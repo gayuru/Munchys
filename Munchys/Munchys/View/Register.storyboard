@@ -83,7 +83,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="otU-hr-Dbd" firstAttribute="top" secondItem="25l-OP-B8o" secondAttribute="bottom" constant="156" id="1g6-Fp-FEC"/>
                             <constraint firstItem="R4n-yx-FDI" firstAttribute="top" secondItem="UZk-4D-XAd" secondAttribute="bottom" constant="63" id="8QN-ak-LUP"/>
