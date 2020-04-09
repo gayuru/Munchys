@@ -52,15 +52,17 @@
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV2-b2-P10">
-                                <rect key="frame" x="43" y="532" width="194" height="58"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV2-b2-P10">
+                                <rect key="frame" x="43" y="532" width="204" height="58"/>
                                 <color key="backgroundColor" red="1" green="0.90588235294117647" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="A8q-Xj-7eM"/>
-                                    <constraint firstAttribute="width" constant="194" id="yj3-yl-A52"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="204" id="yj3-yl-A52"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Login">
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="56" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="126" minY="2" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Login" image="arrow">
                                     <color key="titleColor" red="0.96862745098039216" green="0.68627450980392157" blue="0.61568627450980395" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -70,17 +72,20 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6Z-Zj-uVq">
-                                <rect key="frame" x="43" y="607" width="270" height="56"/>
+                                <rect key="frame" x="43" y="607" width="285" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="7wT-HK-VZ2"/>
-                                    <constraint firstAttribute="width" constant="270" id="lBn-QX-GZf"/>
+                                    <constraint firstAttribute="width" constant="285" id="lBn-QX-GZf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="35" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="212" minY="2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Register with us" image="heart-min">
                                     <color key="titleColor" red="0.96862745100000003" green="0.68627450980000004" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="96J-Rb-CIK" kind="showDetail" id="41W-dq-FXy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -116,8 +121,17 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
         </scene>
+        <!--Register-->
+        <scene sceneID="9fF-Qf-Djp">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Register" id="96J-Rb-CIK" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mdl-ys-bwT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047" y="148"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="arrow" width="29" height="29"/>
         <image name="heart-min" width="15" height="15"/>
         <image name="logo" width="512" height="319"/>
     </resources>
