@@ -1,0 +1,54 @@
+PODS:
+  - AWSCloudWatch (2.13.1):
+    - AWSCore (= 2.13.1)
+  - AWSCognito (2.13.1):
+    - AWSCore (= 2.13.1)
+  - AWSCognitoIdentityProvider (2.13.1):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.13.1)
+  - AWSCognitoIdentityProviderASF (1.0.1)
+  - AWSCore (2.13.1)
+  - AWSDynamoDB (2.13.1):
+    - AWSCore (= 2.13.1)
+  - AWSLambda (2.13.1):
+    - AWSCore (= 2.13.1)
+  - AWSMobileAnalytics (2.13.1):
+    - AWSCore (= 2.13.1)
+  - AWSS3 (2.13.1):
+    - AWSCore (= 2.13.1)
+
+DEPENDENCIES:
+  - AWSCloudWatch
+  - AWSCognito
+  - AWSCognitoIdentityProvider
+  - AWSDynamoDB
+  - AWSLambda
+  - AWSMobileAnalytics
+  - AWSS3
+
+SPEC REPOS:
+  trunk:
+    - AWSCloudWatch
+    - AWSCognito
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSDynamoDB
+    - AWSLambda
+    - AWSMobileAnalytics
+    - AWSS3
+
+SPEC CHECKSUMS:
+  AWSCloudWatch: 72972be043b698da3f5969968a06ef356c0f0bf4
+  AWSCognito: c6311e35fe74c9ee490fff3e03548afae629dc5c
+  AWSCognitoIdentityProvider: 78f240befbd2e47a8e644946a9dd19812b0e5044
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
+  AWSCore: ec394695d054fa4136b20ccd22d8901faea5de04
+  AWSDynamoDB: e672a3f1053a7aa28d9393d49589c4b0f6d2cb22
+  AWSLambda: 06e7dc0206f8ccef6380f096ab92503d5c96e96b
+  AWSMobileAnalytics: 7b62b7c2d8257c423d0b3ac45b3558fc6363ca37
+  AWSS3: 03511ee2f0482f1674b864d7f6ceddc7184f8491
+
+PODFILE CHECKSUM: f9a9f29e36c6f8c0c2c949e8cab509a7b98c4c5d
+
+COCOAPODS: 1.9.1

@@ -1,0 +1,10 @@
+${PODS_ROOT}/Target Support Files/Pods-Munchys/Pods-Munchys-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AWSCloudWatch/AWSCloudWatch.framework
+${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework
+${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework
+${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework
+${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework
+${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework
+${BUILT_PRODUCTS_DIR}/AWSLambda/AWSLambda.framework
+${BUILT_PRODUCTS_DIR}/AWSMobileAnalytics/AWSMobileAnalytics.framework
+${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework
