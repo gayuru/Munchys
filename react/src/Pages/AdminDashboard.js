@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useContext} from 'react';
+import React,{useContext,useState,useEffect} from 'react';
 import {
     Link,
    
@@ -139,6 +139,11 @@ function AdminDashboard(props) {
 
     const { getSession, logout } = useContext(AccountContext);
 
+    const [value, setValue] = useState('');
+
+      useEffect(() => {
+          setValue(localStorage.getItem('userData'))
+      }, [window.location.pathname])
     return (
         <CustomContainer>
             <Row>
@@ -147,6 +152,7 @@ function AdminDashboard(props) {
             <Row>
                 <h1>
                 Good Evening, Rob!
+                {/* {console.log(JSON.parse(value))} */}
                 </h1>
             </Row>
             <Row>

@@ -101,12 +101,13 @@ function Register(props) {
       if (err){
         setRegistererror(err.message);
       }else{
+        localStorage.setItem('data', data.user.username);
         auth.login(() => {
           props.history.push("/register/verification");
         });
       } 
       // conso
-      localStorage.setItem('data', data.user.username);
+   
     });
 
 

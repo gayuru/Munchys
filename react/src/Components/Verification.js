@@ -96,7 +96,7 @@ function Verification(props) {
           reset()
       }
      if(result ==="SUCCESS"){
-        props.history.push('/dashboard');
+        props.history.push('/');
      }
   });
 
