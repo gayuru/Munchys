@@ -19,9 +19,8 @@ import API from "../utils/api";
 import auth from "../utils/auth";
 import { useForm } from 'react-hook-form'
 
-import {CognitoUserPool,CognitoUserAttribute,CognitoUser} from 'amazon-cognito-identity-js';
-
-
+import UserPool from '../utils/UserPool';
+import {CognitoUserAttribute} from 'amazon-cognito-identity-js';
 //////////////////////////////
 //Styled components
 const StyledLink = styled(Link)`
@@ -77,12 +76,8 @@ function Register(props) {
   const { register, handleSubmit, reset, errors } = useForm()
   const [registererror, setRegistererror] = useState();
 
-  const poolData = {
-    UserPoolId:'us-east-1_BxmkyA64E',
-    ClientId: 'ad68851i8vs1u92redqluoagt'
-  }
 
-  const UserPool = new CognitoUserPool(poolData);
+
 
   var attributeList = [];
 
@@ -107,6 +102,10 @@ function Register(props) {
     UserPool.signUp(data.email,data.password,attributeList,null,(err, data) => {
       if (err){
         setRegistererror(err.message);
+      }else{
+        auth.login(() => {
+                  props.history.push("/dashboard");
+                });
       } 
       console.log(data);
     });

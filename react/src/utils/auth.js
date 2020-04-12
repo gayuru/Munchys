@@ -6,7 +6,6 @@ class Auth{
     login(cb){
         this.authenticated = true;
         localStorage.setItem('isAuth', this.authenticated);
-        console.log(cb);
         cb();
     }
 

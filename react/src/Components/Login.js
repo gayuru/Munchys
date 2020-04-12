@@ -18,6 +18,8 @@ import Button from 'react-bootstrap/Button';
 import API from "../utils/api";
 import auth from '../utils/auth';
 import {useForm} from 'react-hook-form';
+import {CognitoUser,AuthenticationDetails} from 'amazon-cognito-identity-js'
+import UserPool from '../utils/UserPool'
 
 //////////////////////////////
 //Styled components
@@ -72,22 +74,41 @@ function Login(props) {
   const [loginerror, setLoginerror] = useState();
 
   const onSubmit = data => { 
-    API.post('/login', data)
-    .then(function (response) {
-      let success = response.data.login_success;
-      if(success === "YES"){
-        //setLocalStorage to user data
+
+    const user = new CognitoUser({
+      Username:data.email,
+      Pool:UserPool
+    });
+
+    const authDetails = new AuthenticationDetails({
+      Username: data.email,
+      Password: data.password
+    });
+
+    user.authenticateUser(authDetails, {
+      onSuccess: data => {
+        console.log(data);
         auth.login(()=>{
-            props.history.push("/dashboard");
+          props.history.push("/dashboard");
         });
-      }else{
-        setLoginerror("The email or password is incorrect.");
+      },
+
+      onFailure: err => {
+        console.log(err);
+        setLoginerror(err.message);
+        reset();
+      },
+
+      newPasswordRequired: data => {
+        setLoginerror(data.message);
         reset();
       }
-    })
-    .catch(function (error) {
-      console.log(error);
     });
+
+
+
+
+
   }
 
 
