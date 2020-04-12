@@ -142,6 +142,10 @@ function AdminDashboard(props) {
     const [value, setValue] = useState('');
 
       useEffect(() => {
+        getSession()
+        .then(session => {
+          setValue(session.idToken.payload.given_name)
+        })
           setValue(localStorage.getItem('userData'))
       }, [window.location.pathname])
     return (
@@ -151,7 +155,7 @@ function AdminDashboard(props) {
             </Row>
             <Row>
                 <h1>
-                Good Evening, Rob!
+                Good Evening, {value}
                 {/* {console.log(JSON.parse(value))} */}
                 </h1>
             </Row>
