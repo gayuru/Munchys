@@ -19,6 +19,9 @@ import API from "../utils/api";
 import auth from "../utils/auth";
 import { useForm } from 'react-hook-form'
 
+import {CognitoUserPool,CognitoUserAttribute,CognitoUser} from 'amazon-cognito-identity-js';
+
+
 //////////////////////////////
 //Styled components
 const StyledLink = styled(Link)`
@@ -74,24 +77,61 @@ function Register(props) {
   const { register, handleSubmit, reset, errors } = useForm()
   const [registererror, setRegistererror] = useState();
 
+  const poolData = {
+    UserPoolId:'us-east-1_BxmkyA64E',
+    ClientId: 'ad68851i8vs1u92redqluoagt'
+  }
+
+  const UserPool = new CognitoUserPool(poolData);
+
+  var attributeList = [];
+
   const onSubmit = data => {
-    API.post('/register', data)
-      .then(function (response) {
-        console.log(response);
-        let success = response.data.registration_success;
-        if (success === "YES") {
-          //setLocalStorage to user data
-          auth.login(() => {
-            props.history.push("/dashboard");
-          });
-        } else {
-          setRegistererror("The user email already exists!");
-          reset();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+    var dataFn = {
+      Name: 'family_name',
+      Value: data.lname,
+    };
+    
+    var dataFg = {
+        Name: 'given_name',
+        Value: data.fname,
+    };
+  
+    var attributeFn = new CognitoUserAttribute(dataFn);
+    var attributeGn = new CognitoUserAttribute(dataFg);
+  
+    attributeList.push(attributeFn);
+    attributeList.push(attributeGn);
+
+    UserPool.signUp(data.email,data.password,attributeList,null,(err, data) => {
+      if (err){
+        setRegistererror(err.message);
+      } 
+      console.log(data);
+    });
+
+
+    // API.post('/register', data)
+    //   .then(function (response) {
+    //     console.log(response);
+    //     let success = response.data.registration_success;
+    //     if (success === "YES") {
+    //       //setLocalStorage to user data
+    //       auth.login(() => {
+    //         props.history.push("/dashboard");
+    //       });
+    //     } else {
+    //       setRegistererror("The user email already exists!");
+    //       reset();
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+
+
   }
 
   return (
@@ -115,22 +155,16 @@ function Register(props) {
           <Form.Control type="email" name="email" ref={register({ required: true })} />
           {errors.email && <span>This field is required</span>}
         </Form.Group>
-        <Form.Row>
-          <Col>
-            <Form.Group controlId="formBasicPassword">
-              <CustomFormLabel>Password</CustomFormLabel>
-              <Form.Control type="password" name="password" ref={register({ required: true })} />
-              {errors.password && <span>This field is required</span>}
-            </Form.Group>
-          </Col>
-          <Col>
-            <CustomFormLabel>Admin code *</CustomFormLabel>
-            <Form.Control type="number" placeholder="only" defaultValue="0000" name="adminCode" />
-          </Col>
-        </Form.Row>
-        <CustomMessage>* This field is only for admin use</CustomMessage>
 
-        <Spacer height="4vh" />
+        <Form.Group controlId="formBasicPassword">
+          <CustomFormLabel>Password</CustomFormLabel>
+          <Form.Control type="password" name="password" ref={register({ required: true })} />
+          {errors.password && <span>This field is required</span>}
+        </Form.Group>
+
+
+
+        <Spacer height="2vh" />
         {registererror}
         <Spacer height="1vh" />
         {/* <StyledLink to="/register"> */}
