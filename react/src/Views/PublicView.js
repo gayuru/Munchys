@@ -26,6 +26,7 @@ function PublicView(props) {
           <Switch>
           <Route exact path='/'  component={LoginPage} />
           <Route exact path='/register'  component={LoginPage} />
+          <Route exact path="/register/verification" component={LoginPage}/>
           <ProtectedRoute exact path='/dashboard'  component={AdminDashboard} />
           <Route path="*" component={NotFound}/>
           </Switch>

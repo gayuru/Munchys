@@ -15,6 +15,7 @@ import Column from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Doodle from '../media/login-vector.svg'
 import Register from '../Components/Register';
+import Verification from '../Components/Verification';
 //Component Imports
 
 //////////////////////////////
@@ -121,11 +122,39 @@ function LoginPage(props) {
     )
   }
 
+  const renderVerify = () => {
+    return (
+      <CustomContainer fluid>
+          <Row>
+              <LoginColumn xs={12} md={5}>
+              <FormWrapper form={<Verification/>} heading="Verify your account"/>
+              </LoginColumn>
+             
+              <CustomColumn xs={12} md={7}>
+              <ImageColumn>
+                <ContentWrap>
+                <Heading>
+                 We bring the Good Cooking <br/> to Life
+                 </Heading>
+                  <CustomDoodle src={Doodle} fluid/>
+                </ContentWrap>
+              </ImageColumn>
+              </CustomColumn>
+          </Row>
+      </CustomContainer>
+    )
+  }
+  
   if(props.location.pathname === "/register"){
     return(
       <div>{renderRegister()}</div>
     )
     // renderRegister();
+  }else if(props.location.pathname === "/register/verification"){
+    return(
+      <div>{renderVerify()}</div>
+    )
+
   }else{
     return(
       <div>{renderLogin()}</div>

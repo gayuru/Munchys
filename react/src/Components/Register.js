@@ -102,10 +102,11 @@ function Register(props) {
         setRegistererror(err.message);
       }else{
         auth.login(() => {
-          props.history.push("/dashboard");
+          props.history.push("/register/verification");
         });
       } 
-      console.log(data);
+      // conso
+      localStorage.setItem('data', data.user.username);
     });
 
 

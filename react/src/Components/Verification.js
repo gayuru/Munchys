@@ -18,9 +18,8 @@ import Button from 'react-bootstrap/Button';
 import API from "../utils/api";
 import auth from "../utils/auth";
 import { useForm } from 'react-hook-form'
-
-import UserPool from '../utils/UserPool';
-import {CognitoUserAttribute} from 'amazon-cognito-identity-js';
+import Pool from '../utils/UserPool';
+import {CognitoUser} from 'amazon-cognito-identity-js';
 //////////////////////////////
 //Styled components
 const StyledLink = styled(Link)`
@@ -77,67 +76,39 @@ function Verification(props) {
   const [registererror, setRegistererror] = useState();
 
 
-  var attributeList = [];
-
   const onSubmit = data => {
 
-    var dataFn = {
-      Name: 'family_name',
-      Value: data.lname,
-    };
-    
-    var dataFg = {
-        Name: 'given_name',
-        Value: data.fname,
-    };
-  
-    var attributeFn = new CognitoUserAttribute(dataFn);
-    var attributeGn = new CognitoUserAttribute(dataFg);
-  
-    attributeList.push(attributeFn);
-    attributeList.push(attributeGn);
-
-    UserPool.signUp(data.email,data.password,attributeList,null,(err, data) => {
-      if (err){
-        setRegistererror(err.message);
-      }else{
-        auth.login(() => {
-          props.history.push("/dashboard");
-        });
-      } 
-      console.log(data);
-    });
+    console.log(Pool);
+    console.log(localStorage)
+     const username = localStorage.getItem('data')
 
 
-    // API.post('/register', data)
-    //   .then(function (response) {
-    //     console.log(response);
-    //     let success = response.data.registration_success;
-    //     if (success === "YES") {
-    //       //setLocalStorage to user data
-    //       auth.login(() => {
-    //         props.history.push("/dashboard");
-    //       });
-    //     } else {
-    //       setRegistererror("The user email already exists!");
-    //       reset();
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+  var userData = {
+      Username: username,
+      Pool: Pool,
+  };
+   
+  var cognitoUser = new CognitoUser(userData);
 
-
+    cognitoUser.confirmRegistration(data.code, true, function(err, result) {
+      if (err) {
+          setRegistererror(err.message)
+          reset()
+      }
+     if(result ==="SUCCESS"){
+        props.history.push('/dashboard');
+     }
+  });
 
   }
 
   return (
     <React.Fragment>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group controlId="formBasicEmail">
-          <CustomFormLabel>Email address</CustomFormLabel>
-          <Form.Control type="email" name="email" ref={register({ required: true })} />
-          {errors.email && <span>This field is required</span>}
+        <Form.Group controlId="formBasicCode">
+          <CustomFormLabel>Verification Code</CustomFormLabel>
+          <Form.Control type="text" name="code" ref={register({ required: true })} />
+          {errors.code && <span>This field is required</span>}
         </Form.Group>
         <Spacer height="2vh" />
         {registererror}
