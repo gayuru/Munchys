@@ -1,7 +1,8 @@
 //Login.js
 ///////////////////////////////
 //React & Material
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
+import {AccountContext} from '../utils/Account'
 import {
   Link,
   withRouter,
@@ -72,43 +73,49 @@ function Login(props) {
 
   const { register, handleSubmit, errors,reset} = useForm();
   const [loginerror, setLoginerror] = useState();
+  const { authenticate } = useContext(AccountContext);
 
   const onSubmit = data => { 
 
-    const user = new CognitoUser({
-      Username:data.email,
-      Pool:UserPool
-    });
+    authenticate(data.email, data.password)
+    .then(data => {
+     
+      console.log('Logged in!', data);
+    })
+    .catch(err => {
+      setLoginerror(err.message);
+      reset();
+    })
 
-    const authDetails = new AuthenticationDetails({
-      Username: data.email,
-      Password: data.password
-    });
+    // const user = new CognitoUser({
+    //   Username:data.email,
+    //   Pool:UserPool
+    // });
 
-    user.authenticateUser(authDetails, {
-      onSuccess: data => {
-        console.log(data);
-        auth.login(()=>{
-          props.history.push("/dashboard");
-        });
-      },
+    // const authDetails = new AuthenticationDetails({
+    //   Username: data.email,
+    //   Password: data.password
+    // });
 
-      onFailure: err => {
-        console.log(err);
-        setLoginerror(err.message);
-        reset();
-      },
+    // user.authenticateUser(authDetails, {
+    //   onSuccess: data => {
+    //     console.log(data);
+    //     auth.login(()=>{
+    //       props.history.push("/dashboard");
+    //     });
+    //   },
 
-      newPasswordRequired: data => {
-        setLoginerror(data.message);
-        reset();
-      }
-    });
+    //   onFailure: err => {
+    //     console.log(err);
+    //     setLoginerror(err.message);
+    //     reset();
+    //   },
 
-
-
-
-
+    //   newPasswordRequired: data => {
+    //     setLoginerror(data.message);
+    //     reset();
+    //   }
+    // });
   }
 
 

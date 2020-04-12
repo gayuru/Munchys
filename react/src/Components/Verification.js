@@ -71,7 +71,7 @@ const Spacer = styled.div`
 /**
  * Displays a template component
  */
-function Register(props) {
+function Verification(props) {
 
   const { register, handleSubmit, reset, errors } = useForm()
   const [registererror, setRegistererror] = useState();
@@ -134,48 +134,21 @@ function Register(props) {
   return (
     <React.Fragment>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Row>
-          <Col>
-            <CustomFormLabel>First name</CustomFormLabel>
-            <Form.Control type="text" name="fname" ref={register({ required: true })} />
-            {errors.fname && <span>This field is required</span>}
-          </Col>
-          <Col>
-            <CustomFormLabel>Last name</CustomFormLabel>
-            <Form.Control type="text" name="lname" ref={register({ required: true })} />
-            {errors.lname && <span>This field is required</span>}
-          </Col>
-        </Form.Row>
-        <Spacer height="1vh" />
         <Form.Group controlId="formBasicEmail">
           <CustomFormLabel>Email address</CustomFormLabel>
           <Form.Control type="email" name="email" ref={register({ required: true })} />
           {errors.email && <span>This field is required</span>}
         </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <CustomFormLabel>Password</CustomFormLabel>
-          <Form.Control type="password" name="password" ref={register({ required: true })} />
-          {errors.password && <span>This field is required</span>}
-        </Form.Group>
-
-
-
         <Spacer height="2vh" />
         {registererror}
         <Spacer height="1vh" />
         {/* <StyledLink to="/register"> */}
         <AccountButton type="submit">
-          Create an account
+          Confirm Account
          </AccountButton>
         {/* </StyledLink> */}
-        <StyledLink to="/">
-          <BackButton>
-            Go back
-         </BackButton>
-        </StyledLink>
       </Form>
     </React.Fragment>
   )
 }
-export default withRouter(Register);
+export default withRouter(Verification);

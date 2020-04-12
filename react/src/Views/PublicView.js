@@ -11,6 +11,7 @@ import LoginPage from "../Pages/LoginPage";
 import AdminDashboard from '../Pages/AdminDashboard';
 import { ProtectedRoute } from '../Components/ProtectedRoute';
 import { NotFound } from '../Components/NotFound';
+import { Account } from '../utils/Account';
 
 
 
@@ -21,13 +22,14 @@ const Container = styled.div`
 function PublicView(props) {
     return (
       <Container>
+        <Account>
           <Switch>
-        {/* <Route exact path='/'  component={() => <FormWrapper form={<Login/>} heading="Log in to your account"/>} /> */}
           <Route exact path='/'  component={LoginPage} />
           <Route exact path='/register'  component={LoginPage} />
-          <Route exact path='/dashboard'  component={AdminDashboard} />
+          <ProtectedRoute exact path='/dashboard'  component={AdminDashboard} />
           <Route path="*" component={NotFound}/>
           </Switch>
+          </Account>
       </Container>
     )
   }

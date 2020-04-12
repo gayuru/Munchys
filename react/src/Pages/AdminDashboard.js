@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React from 'react';
+import React,{useContext} from 'react';
 import {
     Link,
    
@@ -14,10 +14,11 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import BannerImage from '../media/Banner.svg'
-
 //Component Imports
 import auth from "../utils/auth"
-
+import {AccountContext} from '../utils/Account'
+import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import Pool from '../utils/UserPool';
 //////////////////////////////
 //Styled components
 const CustomContainer = styled(Container)`
@@ -135,6 +136,9 @@ const CustomFooter = styled.footer`
  * Displays a template component
  */
 function AdminDashboard(props) {
+
+    const { getSession, logout } = useContext(AccountContext);
+
     return (
         <CustomContainer>
             <Row>
@@ -197,13 +201,19 @@ function AdminDashboard(props) {
             </Row>
             <Row>
             <CustomFooter>
-            <CustomButton onClick= {()=>{
-                    auth.logout(()=>{
-                        props.history.push('/');
-                    })
+                <CustomButton onClick={()=>{
+                     getSession()
+                     .then(session => {
+                       console.log('Session:', session);
+                     })
                 }}>
+                    Get session
+                    </CustomButton>
+
+            <CustomButton onClick={logout}>
                     Logout
             </CustomButton>
+            
              </CustomFooter>
              </Row>
         </CustomContainer>
