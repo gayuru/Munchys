@@ -5,17 +5,66 @@ import React, {useEffect,useState} from 'react';
 
 //Plugins
 import styled from 'styled-components';
-import Container from 'react-bootstrap/Container'
+import {Container,Row,Image, Col} from 'react-bootstrap';
+import logo from '../media/logo-coloured.svg'
+import backgroundImage from '../media/background.jpg'
+import Typing from 'react-typing-animation';
 //Component Imports
 
 //////////////////////////////
 //Styled components
-const FullHeightContainer = styled(Container)`
-  height:100vh;
-  border-style: solid;
-  border-color: #36FFC1;
+
+const Logo = styled(Image)`
+  margin-top:3vh;
+`
+const MainText = styled.text`
+font-size: 5em;
+margin-left:5vw;
+text-shadow: 1px 4px 8px rgba(0, 0, 0, 0.28);
+display:block;
+`
+const SubText = styled.span`
+font-style: italic;
+margin-left:25vw;
+font-weight: bold;
+font-size: 8em;
+line-height: 156px;
+/* identical to box height */
+color: #7F95D1;
+display:block;
+z-index:1;
 `
 
+const CustomRow = styled(Row)`
+  margin-top:${props => props.top};
+`
+
+const TextBox = styled.div`
+  margin-left:5vw;
+  border-left:3px solid #7F95D1;
+  padding:10px 10px 10px 15px;
+`
+const Subline = styled.p`
+line-height: 23px;
+text-align: justify;
+`
+const Blue = styled.span`
+font-weight: bold;
+color: #7F95D1;
+`
+const Graphic = styled.div`
+position: absolute;
+width: 606px;
+height: 1012px;
+    top: 0px;
+    right: 0px;
+z-index:-1;
+background: url(${backgroundImage})100% no-repeat;
+background-size: cover;
+    background-position: center; 
+box-shadow: 1px -7px 53px rgba(0, 0, 0, 0.1);
+border-radius: 0px 0px 0px 141px;
+`
 //////////////////////////////
 //Dashboard class
 /**
@@ -24,31 +73,39 @@ const FullHeightContainer = styled(Container)`
 function Dashboard(props) {
   const [currentTime,setCurrentTime] = useState(0);
 
-  useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data=>{
-      setCurrentTime(data.time)
-    });
-  },[]);
-
-  function convert(str) {
-    var date = new Date(str),
-      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day].join("-");
-  }
-
-  const exampleFunction = () => {
-    return (
-      <h1>
-        The current time is {convert(currentTime)}
-      </h1>
-    )
-  }
+  useEffect(() => { 
+    document.body.style.backgroundColor = '#FFF5F5'
+   }, []) 
 
   return (
-  <FullHeightContainer>
-    {exampleFunction()}
-  </FullHeightContainer>
+  <Container>
+    <Row>
+    <Logo src={logo}/>
+    <Graphic/>
+    </Row>
+    <CustomRow top="10vh">
+   
+    <MainText>
+    Every Day is <br/>
+    </MainText>
+    <SubText>
+    Tastyyyy
+    </SubText>
+
+    </CustomRow>
+    <CustomRow top="15vh">
+    <TextBox>
+    <Typing speed={50}>
+      <Subline>
+      Lorem ipsum dolor sit amet, <Blue>consectetur</Blue> adipiscing<br/>
+       elit, sed do eiusmod tempor incididunt ut labore et<br/> 
+       dolore magna aliqua. <Blue>Ut enim</Blue> ad minim veniam,<br/>
+        quis nostrud exercitation ullamco laboris <Blue>nisi ut.</Blue>
+      </Subline>
+      </Typing>
+    </TextBox>
+    </CustomRow>
+  </Container>
   )
 }
 export default Dashboard;
