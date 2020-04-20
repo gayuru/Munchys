@@ -38,9 +38,6 @@ color: #000000
  * Displays a template component
  */
 function InfoDecoration(props) {
-
-
-
   return (
     <FixedContainer fluid>
       <Row>
