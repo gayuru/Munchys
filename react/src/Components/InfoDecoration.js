@@ -19,11 +19,12 @@ const CustomColumn = styled(Col)`
 background: ${props => props.background};
 border-radius: ${props => props.radius};
 width: 145px;
-height: 93px;
+height: 120px;
 display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 `
 
 const ColText = styled.h2`
@@ -32,6 +33,8 @@ font-size: 17px;
 text-align: center;
 color: #000000
 `
+
+
 //////////////////////////////
 //Component class
 /**
@@ -44,13 +47,13 @@ function InfoDecoration(props) {
         <CustomColumn background="#FFC0BE" radius="0px 50px 0px 0px">
           <Image src={Icon} fluid />
           <ColText>
-            Sample
+            My Profile
         </ColText>
         </CustomColumn>
         <CustomColumn background="#D3F8E2" radius="50px 0px 0px 0px">
           <Image src={Icon} fluid />
           <ColText>
-            Sample
+            Saved Recipes
           </ColText>
         </CustomColumn>
       </Row>
@@ -58,13 +61,15 @@ function InfoDecoration(props) {
         <CustomColumn background="#EDE7B1" radius="0px 0px 0px 50px">
           <Image src={Icon} fluid />
           <ColText>
-            Sample
+            Taste your Luck
            </ColText>
         </CustomColumn>
         <CustomColumn background="#7F95D1" radius="0px 0px 50px 0px">
           <Image src={Icon} fluid />
           <ColText>
-            Sample
+            Made for you
+
+           
           </ColText>
         </CustomColumn>
       </Row>
