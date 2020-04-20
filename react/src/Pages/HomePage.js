@@ -70,7 +70,7 @@ border-radius: 0px 0px 0px 141px;
 /**
  * Displays a template component
  */
-function Dashboard(props) {
+function HomePage(props) {
   const [currentTime,setCurrentTime] = useState(0);
 
   useEffect(() => { 
@@ -108,4 +108,4 @@ function Dashboard(props) {
   </Container>
   )
 }
-export default Dashboard;
+export default HomePage;
