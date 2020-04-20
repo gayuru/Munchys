@@ -9,6 +9,7 @@ import {Container,Row,Image, Col} from 'react-bootstrap';
 import logo from '../media/logo-coloured.svg'
 import backgroundImage from '../media/background.jpg'
 import Typing from 'react-typing-animation';
+import InfoDecoration from '../Components/InfoDecoration';
 //Component Imports
 
 //////////////////////////////
@@ -37,6 +38,11 @@ z-index:1;
 
 const CustomRow = styled(Row)`
   margin-top:${props => props.top};
+`
+const InfoRow = styled(Row)`
+  margin-top:${props => props.top};
+  float:left;
+  margin-left:5vw;
 `
 
 const TextBox = styled.div`
@@ -95,7 +101,7 @@ function HomePage(props) {
     </CustomRow>
     <CustomRow top="15vh">
     <TextBox>
-    <Typing speed={50}>
+    <Typing speed={20}>
       <Subline>
       Lorem ipsum dolor sit amet, <Blue>consectetur</Blue> adipiscing<br/>
        elit, sed do eiusmod tempor incididunt ut labore et<br/> 
@@ -105,6 +111,11 @@ function HomePage(props) {
       </Typing>
     </TextBox>
     </CustomRow>
+    <InfoRow top="10vh">
+      <InfoDecoration/>
+      
+    </InfoRow>
+    
   </Container>
   )
 }
