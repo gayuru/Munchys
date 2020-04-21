@@ -5,12 +5,14 @@ import React, { useCallback, useState, useEffect } from 'react';
 
 //Plugins
 import styled from 'styled-components';
-import { Container, Row, Image } from 'react-bootstrap';
+import { Container, Row, Image, Button } from 'react-bootstrap';
 import GridGenerator from './GridGenerator';
 
-import Food from '../media/food.svg';
-
+import Arrow from '../media/arrow.svg';
+import API from '../utils/api'
 const axios = require('axios').default;
+
+
 
 //Component Imports
 
@@ -76,6 +78,30 @@ justify-content: center;
     display: flex;
     flex-direction: column;
 `
+
+const CustomButton = styled(Button)`
+border: 2px solid #F7AF9D;
+box-sizing: border-box;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.13);
+ font-size: 25px;
+ padding: 0px 20px;
+// line-height: 37px;
+// width: 334px;
+// height: 70px;
+background-color: Transparent;
+background-repeat:no-repeat;
+color: #000000;
+
+&:hover,&:focus,&:active{
+  color: white !important;
+  background-color: #7F95D1; !important;
+  border-color: #7F95D1; !important;
+}
+`
+
+const ArrowImage = styled(Image)`
+margin-left:1vw;
+`
 //////////////////////////////
 //Component class
 /**
@@ -120,7 +146,6 @@ function IngredientSection(props) {
 
   function getFoodItem(x) {
     const index = selectedIngredients.find(y => y.IngredientName == x.IngredientName) 
-
     if (index === undefined) {
       const ingredients = [...selectedIngredients, x]; // new array need to update
       setSelectedIngredients(ingredients); // update the state
@@ -158,6 +183,30 @@ function IngredientSection(props) {
           {Ingredient(i.IngredientName, i.Picture)}
         </div>
       )
+    )
+  }
+
+  const handleClick = () => {
+    console.log(selectedIngredients)
+    API.post('/login', selectedIngredients)
+    .then(function (response) {
+     
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  const recipeButton = () =>{
+    return (
+      <div>
+      <Spacer height="2vh" />
+      <Row>
+      <CustomButton onClick={handleClick}>
+        Show Recipes <ArrowImage src={Arrow}/>
+      </CustomButton>
+      </Row> 
+      </div>
     )
   }
   
@@ -198,9 +247,9 @@ function IngredientSection(props) {
       <Row>
       <GridGenerator cols={4}>
         {selectedIngredients.length ? ingredientView(selectedIngredients): <h2>No Ingredients selected.</h2>}
-        </GridGenerator>
-
+      </GridGenerator>
       </Row>
+      {selectedIngredients.length ? recipeButton(): null}
     </CustomContainer>
   )
 }
