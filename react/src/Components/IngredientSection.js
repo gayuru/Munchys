@@ -1,15 +1,17 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useCallback,useState,useEffect} from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 
 //Plugins
 import styled from 'styled-components';
-import { Container, Row,Image } from 'react-bootstrap';
+import { Container, Row, Image } from 'react-bootstrap';
 import GridGenerator from './GridGenerator';
 
 import Food from '../media/food.svg';
-import API from '../utils/api'
+
+const axios = require('axios').default;
+
 //Component Imports
 
 //////////////////////////////
@@ -73,24 +75,55 @@ justify-content: center;
  */
 function IngredientSection(props) {
 
-  const [popularIngredients,setPopularIngredients] = useState([""])
+  const [popularIngredients, setPopularIngredients] = useState([""])
+  const [ingredients, setIngredients] = useState([""])
   const [showResults, setShowResults] = useState(false)
   const [selectedIngredients, setSelectedIngredients] = useState([])
 
   useEffect(() => {
-    API.get('/Production/ingredients')
-    .then(function (response) {
-      console.log(response.data)
-      setPopularIngredients(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
+
+    const instance = axios.create({
+      baseURL: "https://98vno070t3.execute-api.us-east-1.amazonaws.com",
+      responseType: "json"
     });
+
+    function getIngredients() {
+      return instance.get('/Production/ingredients?isPopular=False');
+    }
+
+    function getPopularIngredients() {
+      return instance.get('/Production/ingredients?isPopular=True');
+    }
+
+
+
+    axios.all([getIngredients(), getPopularIngredients()])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+
+          setIngredients(responseOne.data);
+          setPopularIngredients(responseTwo.data);
+        })
+      ).catch(errors => {
+        // react on errors.
+        console.error(errors);
+      });
+
+    // API.get('/Production/ingredients?isPopular=True')
+    // .then(function (response) {
+    //   console.log(response.data)
+    //   setPopularIngredients(response.data)
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
 
 
   }, [])
 
-  function getFoodItem(food){
+  function getFoodItem(food) {
 
     console.log(food);
 
@@ -108,76 +141,73 @@ function IngredientSection(props) {
     }
 
   }
-  
- 
-  const Ingredient = (name,picture) => {
+
+
+  const Ingredient = (name, picture) => {
     return (
-        <Flex onClick={()=> getFoodItem(name)}>
+      <Flex onClick={() => getFoodItem(name)}>
         <Overlay>
-        <IPicture src={picture}/>
+          <IPicture src={picture} />
         </Overlay>
         <FoodText>
-         {name}
-         {  selectedIngredients.includes(name) ? " ✅" : null }
+          {name}
+          {selectedIngredients.includes(name) ? " ✅" : null}
         </FoodText>
-        </Flex>
+      </Flex>
     )
   }
 
-  const PingredientsView = popularIngredients.map((i) =>
-      <div>
-      {Ingredient(i.IngredientName,i.Picture)}
-      </div>
-    );
+  function ingredientView(x) {
+    return (
+      x.map((i) =>
+        <div>
+          {Ingredient(i.IngredientName, i.Picture)}
+        </div>
+      )
+    )
+  }
+
   return (
-  <CustomContainer>
-    <Row>
-      <HeadingText>
-        Select your ingredients
+    <CustomContainer>
+      <Row>
+        <HeadingText>
+          Select your ingredients
       </HeadingText>
-    </Row>
-    <Row>
-      <Decoration/>
-    </Row>
-    <Row>
-      <PopularText>
-        Popular
+      </Row>
+      <Row>
+        <Decoration />
+      </Row>
+      <Row>
+        <PopularText>
+          Popular
       </PopularText>
-    </Row>
-    <Spacer height="3vh"/>
-    <GridGenerator cols={4}>
-    {popularIngredients.length ? PingredientsView: null}
-    </GridGenerator>
-    <Row>
-      <PopularText>
-        Quick <br/> Ingredients
+      </Row>
+      <Spacer height="3vh" />
+      <GridGenerator cols={4}>
+        {popularIngredients.length ? ingredientView(popularIngredients): null}
+      </GridGenerator>
+      <Row>
+        <PopularText>
+          Quick <br /> Ingredients
       </PopularText>
-    </Row>
-    <Spacer height="3vh"/>
-    <GridGenerator cols={4}>
-      {Ingredient("Rice & Curry","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-    </GridGenerator>
-    <Row>
-      <PopularText>
-       Selected <br/> Ingredients
+      </Row>
+      <Spacer height="3vh" />
+      <GridGenerator cols={4}>
+        {ingredients.length ? ingredientView(ingredients) : null}
+      </GridGenerator>
+      <Row>
+        <PopularText>
+          Selected <br /> Ingredients
       </PopularText>
-      
-    </Row>
-    <Row>
-    <h3>
-      {selectedIngredients.toString()}
-      </h3>
-     
-    </Row>
-  </CustomContainer>
+
+      </Row>
+      <Row>
+        <h3>
+        {selectedIngredients.length ? ingredientView(selectedIngredients): null}
+        </h3>
+
+      </Row>
+    </CustomContainer>
   )
 }
 export default IngredientSection;
