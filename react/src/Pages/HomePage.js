@@ -1,14 +1,16 @@
 //Dashboard.js
 ///////////////////////////////
 //React & Material
-import React, {useEffect,useState} from 'react';
-
+import React, { useEffect, useState } from 'react';
+import API from '../utils/api'
 //Plugins
 import styled from 'styled-components';
-import {Container,Row,Image, Col} from 'react-bootstrap';
+import { Container, Row, Image, Col } from 'react-bootstrap';
 import logo from '../media/logo-coloured.svg'
 import backgroundImage from '../media/background.jpg'
 import Typing from 'react-typing-animation';
+import InfoDecoration from '../Components/InfoDecoration';
+import IngredientSection from '../Components/IngredientSection';
 //Component Imports
 
 //////////////////////////////
@@ -37,6 +39,11 @@ z-index:1;
 
 const CustomRow = styled(Row)`
   margin-top:${props => props.top};
+`
+const InfoRow = styled(Row)`
+  margin-top:${props => props.top};
+  float:left;
+  margin-left:5vw;
 `
 
 const TextBox = styled.div`
@@ -70,42 +77,48 @@ border-radius: 0px 0px 0px 141px;
 /**
  * Displays a template component
  */
-function Dashboard(props) {
-  const [currentTime,setCurrentTime] = useState(0);
-
-  useEffect(() => { 
+function HomePage(props) {
+  const [currentTime, setCurrentTime] = useState(0);
+  
+  useEffect(() => {
     document.body.style.backgroundColor = '#FFF5F5'
-   }, []) 
+  }, [])
 
   return (
-  <Container>
-    <Row>
-    <Logo src={logo}/>
-    <Graphic/>
-    </Row>
-    <CustomRow top="10vh">
-   
-    <MainText>
-    Every Day is <br/>
-    </MainText>
-    <SubText>
-    Tastyyyy
+    <Container>
+      <Row>
+        <Logo src={logo} />
+        <Graphic />
+      </Row>
+      <CustomRow top="10vh">
+        <MainText>
+          Every Day is <br />
+        </MainText>
+        <SubText>
+          Tastyyyy
     </SubText>
 
-    </CustomRow>
-    <CustomRow top="15vh">
-    <TextBox>
-    <Typing speed={50}>
-      <Subline>
-      Lorem ipsum dolor sit amet, <Blue>consectetur</Blue> adipiscing<br/>
-       elit, sed do eiusmod tempor incididunt ut labore et<br/> 
-       dolore magna aliqua. <Blue>Ut enim</Blue> ad minim veniam,<br/>
+      </CustomRow>
+      <CustomRow top="15vh">
+        <TextBox>
+          <Typing speed={20}>
+            <Subline>
+              Lorem ipsum dolor sit amet, <Blue>consectetur</Blue> adipiscing<br />
+       elit, sed do eiusmod tempor incididunt ut labore et<br />
+       dolore magna aliqua. <Blue>Ut enim</Blue> ad minim veniam,<br />
         quis nostrud exercitation ullamco laboris <Blue>nisi ut.</Blue>
-      </Subline>
-      </Typing>
-    </TextBox>
-    </CustomRow>
-  </Container>
+            </Subline>
+          </Typing>
+        </TextBox>
+      </CustomRow>
+      <InfoRow top="10vh">
+        <InfoDecoration />
+      </InfoRow>
+      <CustomRow top="40vh">
+      <IngredientSection/>
+      </CustomRow>
+
+    </Container>
   )
 }
-export default Dashboard;
+export default HomePage;
