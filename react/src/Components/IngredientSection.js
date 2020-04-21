@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useCallback,useState} from 'react';
+import React,{useCallback,useState,useEffect} from 'react';
 
 //Plugins
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ import { Container, Row,Image } from 'react-bootstrap';
 import GridGenerator from './GridGenerator';
 
 import Food from '../media/food.svg';
-
+import API from '../utils/api'
 //Component Imports
 
 //////////////////////////////
@@ -46,6 +46,26 @@ text-align:center;
 const Spacer = styled.div`
   height: ${props => props.height};
 `
+
+const IPicture = styled(Image)`
+border-radius: 18px;
+width: 189px;
+height: 137px;
+object-fit: cover;
+opacity: 0.7;
+`
+
+const Overlay = styled.div`
+background: #D3F8E2;
+width: 189px;
+border-radius: 18px;
+`
+const Flex = styled.div`
+justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+`
 //////////////////////////////
 //Component class
 /**
@@ -53,8 +73,22 @@ const Spacer = styled.div`
  */
 function IngredientSection(props) {
 
+  const [popularIngredients,setPopularIngredients] = useState([""])
   const [showResults, setShowResults] = useState(false)
   const [selectedIngredients, setSelectedIngredients] = useState([])
+
+  useEffect(() => {
+    API.get('/Production/ingredients')
+    .then(function (response) {
+      console.log(response.data)
+      setPopularIngredients(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+
+  }, [])
 
   function getFoodItem(food){
 
@@ -74,18 +108,27 @@ function IngredientSection(props) {
     }
 
   }
+  
  
   const Ingredient = (name,picture) => {
     return (
-        <div onClick={()=> getFoodItem(name)}>
-        <Image src={Food}/>
+        <Flex onClick={()=> getFoodItem(name)}>
+        <Overlay>
+        <IPicture src={picture}/>
+        </Overlay>
         <FoodText>
          {name}
          {  selectedIngredients.includes(name) ? " ✅" : null }
         </FoodText>
-        </div>
+        </Flex>
     )
   }
+
+  const PingredientsView = popularIngredients.map((i) =>
+      <div>
+      {Ingredient(i.IngredientName,i.Picture)}
+      </div>
+    );
   return (
   <CustomContainer>
     <Row>
@@ -103,12 +146,7 @@ function IngredientSection(props) {
     </Row>
     <Spacer height="3vh"/>
     <GridGenerator cols={4}>
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Curry","LOL")}
-      {Ingredient("Toast","LOL")}
-      {Ingredient("Wrap","LOL")}
-      {Ingredient("Bread","LOL")}
-      {Ingredient("Rice","LOL")}
+    {popularIngredients.length ? PingredientsView: null}
     </GridGenerator>
     <Row>
       <PopularText>

@@ -79,19 +79,9 @@ border-radius: 0px 0px 0px 141px;
  */
 function HomePage(props) {
   const [currentTime, setCurrentTime] = useState(0);
-
+  
   useEffect(() => {
     document.body.style.backgroundColor = '#FFF5F5'
-
-    API.get('/Production/ingredients')
-    .then(function (response) {
-      console.log(response)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-
   }, [])
 
   return (
