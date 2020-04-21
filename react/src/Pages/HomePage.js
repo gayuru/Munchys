@@ -2,7 +2,7 @@
 ///////////////////////////////
 //React & Material
 import React, { useEffect, useState } from 'react';
-
+import API from '../utils/api'
 //Plugins
 import styled from 'styled-components';
 import { Container, Row, Image, Col } from 'react-bootstrap';
@@ -82,6 +82,16 @@ function HomePage(props) {
 
   useEffect(() => {
     document.body.style.backgroundColor = '#FFF5F5'
+
+    API.get('/Production/ingredients')
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+
   }, [])
 
   return (
