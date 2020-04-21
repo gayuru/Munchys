@@ -38,6 +38,14 @@ text-align:left;
 line-height: 52px;
 color: #FFAEAB;
 `
+const SelectedText = styled.h2`
+margin-top:4vh;
+font-weight: bold;
+font-size: 39px;
+text-align:left;
+line-height: 52px;
+color: #7F95D1;
+`
 
 const FoodText = styled.h2`
 margin-top:2vh;
@@ -81,7 +89,6 @@ function IngredientSection(props) {
   const [selectedIngredients, setSelectedIngredients] = useState([])
 
   useEffect(() => {
-
     const instance = axios.create({
       baseURL: "https://98vno070t3.execute-api.us-east-1.amazonaws.com",
       responseType: "json"
@@ -94,8 +101,6 @@ function IngredientSection(props) {
     function getPopularIngredients() {
       return instance.get('/Production/ingredients?isPopular=True');
     }
-
-
 
     axios.all([getIngredients(), getPopularIngredients()])
       .then(
@@ -111,47 +116,36 @@ function IngredientSection(props) {
         console.error(errors);
       });
 
-    // API.get('/Production/ingredients?isPopular=True')
-    // .then(function (response) {
-    //   console.log(response.data)
-    //   setPopularIngredients(response.data)
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-
-
   }, [])
 
-  function getFoodItem(food) {
+  function getFoodItem(x) {
+    const index = selectedIngredients.find(y => y.IngredientName == x.IngredientName) 
 
-    console.log(food);
-
-    // showResults ? setShowResults(false) : setShowResults(true)
-
-    const index = selectedIngredients.indexOf(food)
-    // setPlantColor("#16FFD0")
-    if (index === -1) {
-      const ingredients = [...selectedIngredients, food]; // new array need to update
+    if (index === undefined) {
+      const ingredients = [...selectedIngredients, x]; // new array need to update
       setSelectedIngredients(ingredients); // update the state
       // setshowButton(true)
     } else {
-      const filteredItems = selectedIngredients.filter(item => item !== food)
+      const filteredItems = selectedIngredients.filter(item => item.IngredientName !== x.IngredientName)
       setSelectedIngredients(filteredItems)
-    }
-
+    }  
   }
 
 
   const Ingredient = (name, picture) => {
+    const item = {
+      IngredientName: name,
+      Picture: picture
+    };
+    // console.log(selectedIngredients.includes(item))
     return (
-      <Flex onClick={() => getFoodItem(name)}>
+      <Flex onClick={() => getFoodItem(item)}>
         <Overlay>
           <IPicture src={picture} />
         </Overlay>
         <FoodText>
           {name}
-          {selectedIngredients.includes(name) ? " ✅" : null}
+          {selectedIngredients.find(x => x.IngredientName == name) ? " ✅" : null}
         </FoodText>
       </Flex>
     )
@@ -166,7 +160,7 @@ function IngredientSection(props) {
       )
     )
   }
-
+  
   return (
     <CustomContainer>
       <Row>
@@ -196,15 +190,15 @@ function IngredientSection(props) {
         {ingredients.length ? ingredientView(ingredients) : null}
       </GridGenerator>
       <Row>
-        <PopularText>
+        <SelectedText>
           Selected <br /> Ingredients
-      </PopularText>
-
+      </SelectedText>
       </Row>
+      <Spacer height="3vh" />
       <Row>
-        <h3>
-        {selectedIngredients.length ? ingredientView(selectedIngredients): null}
-        </h3>
+      <GridGenerator cols={4}>
+        {selectedIngredients.length ? ingredientView(selectedIngredients): <h2>No Ingredients selected.</h2>}
+        </GridGenerator>
 
       </Row>
     </CustomContainer>
