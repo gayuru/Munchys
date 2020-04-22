@@ -115,17 +115,18 @@ function IngredientSection(props) {
   const [selectedIngredients, setSelectedIngredients] = useState([])
 
   useEffect(() => {
-    const instance = axios.create({
-      baseURL: "https://98vno070t3.execute-api.us-east-1.amazonaws.com",
-      responseType: "json"
-    });
+    // const instance = axios.create({
+    //   baseURL: "https://98vno070t3.execute-api.us-east-1.amazonaws.com",
+    //   responseType: "json"
+    // });
+  
 
     function getIngredients() {
-      return instance.get('/Production/ingredients?isPopular=False');
+      return axios.get('/ingredients?isPopular=False');
     }
 
     function getPopularIngredients() {
-      return instance.get('/Production/ingredients?isPopular=True');
+      return axios.get('/ingredients?isPopular=True');
     }
 
     axios.all([getIngredients(), getPopularIngredients()])
@@ -188,9 +189,10 @@ function IngredientSection(props) {
 
   const handleClick = () => {
     console.log(selectedIngredients)
-    API.post('/login', selectedIngredients)
+    
+    API.post('/recipe', selectedIngredients)
     .then(function (response) {
-     
+     console.log(response)
     })
     .catch(function (error) {
       console.log(error);
