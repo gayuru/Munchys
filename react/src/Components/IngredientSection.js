@@ -188,7 +188,7 @@ function IngredientSection(props) {
 
   const handleClick = () => {
     console.log(selectedIngredients)
-    API.post('/login', selectedIngredients)
+    API.post('/Production/recipes', selectedIngredients)
     .then(function (response) {
      
     })
