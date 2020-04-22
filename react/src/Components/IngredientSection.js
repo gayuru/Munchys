@@ -14,6 +14,8 @@ const axios = require('axios').default;
 
 
 
+
+
 //Component Imports
 
 //////////////////////////////
@@ -120,7 +122,6 @@ function IngredientSection(props) {
     //   responseType: "json"
     // });
   
-
     function getIngredients() {
       return axios.get('/ingredients?isPopular=False');
     }
@@ -190,7 +191,7 @@ function IngredientSection(props) {
   const handleClick = () => {
     console.log(selectedIngredients)
     
-    API.post('/recipe', selectedIngredients)
+    axios.post('/recipe', selectedIngredients)
     .then(function (response) {
      console.log(response)
     })
