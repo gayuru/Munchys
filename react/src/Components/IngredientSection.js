@@ -1,17 +1,16 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useCallback, useState, useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Image, Row } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import { Container, Row, Image, Button } from 'react-bootstrap';
+import Arrow from '../media/arrow.svg';
 import GridGenerator from './GridGenerator';
 
-import Arrow from '../media/arrow.svg';
-import API from '../utils/api'
-const axios = require('axios').default;
 
+const axios = require('axios').default;
 
 
 
@@ -115,6 +114,8 @@ function IngredientSection(props) {
   const [ingredients, setIngredients] = useState([""])
   const [showResults, setShowResults] = useState(false)
   const [selectedIngredients, setSelectedIngredients] = useState([])
+  
+  let history = useHistory();
 
   useEffect(() => {
     // const instance = axios.create({
@@ -193,7 +194,8 @@ function IngredientSection(props) {
     
     axios.post('/recipe', selectedIngredients)
     .then(function (response) {
-     console.log(JSON.parse(response.data.body))
+     const recipeData = JSON.parse(response.data.body)
+     history.push('/recipes',{data : recipeData});
     })
     .catch(function (error) {
       console.log(error);
