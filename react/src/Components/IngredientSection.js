@@ -1,15 +1,20 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useCallback,useState,useEffect} from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Image, Row } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import { Container, Row,Image } from 'react-bootstrap';
+import Arrow from '../media/arrow.svg';
 import GridGenerator from './GridGenerator';
 
-import Food from '../media/food.svg';
-import API from '../utils/api'
+
+const axios = require('axios').default;
+
+
+
+
 //Component Imports
 
 //////////////////////////////
@@ -35,6 +40,14 @@ font-size: 39px;
 text-align:left;
 line-height: 52px;
 color: #FFAEAB;
+`
+const SelectedText = styled.h2`
+margin-top:4vh;
+font-weight: bold;
+font-size: 39px;
+text-align:left;
+line-height: 52px;
+color: #7F95D1;
 `
 
 const FoodText = styled.h2`
@@ -66,6 +79,30 @@ justify-content: center;
     display: flex;
     flex-direction: column;
 `
+
+const CustomButton = styled(Button)`
+border: 2px solid #F7AF9D;
+box-sizing: border-box;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.13);
+ font-size: 25px;
+ padding: 0px 20px;
+// line-height: 37px;
+// width: 334px;
+// height: 70px;
+background-color: Transparent;
+background-repeat:no-repeat;
+color: #000000;
+
+&:hover,&:focus,&:active{
+  color: white !important;
+  background-color: #7F95D1; !important;
+  border-color: #7F95D1; !important;
+}
+`
+
+const ArrowImage = styled(Image)`
+margin-left:1vw;
+`
 //////////////////////////////
 //Component class
 /**
@@ -73,111 +110,152 @@ justify-content: center;
  */
 function IngredientSection(props) {
 
-  const [popularIngredients,setPopularIngredients] = useState([""])
+  const [popularIngredients, setPopularIngredients] = useState([""])
+  const [ingredients, setIngredients] = useState([""])
   const [showResults, setShowResults] = useState(false)
   const [selectedIngredients, setSelectedIngredients] = useState([])
+  
+  let history = useHistory();
 
   useEffect(() => {
-    API.get('/Production/ingredients')
+    // const instance = axios.create({
+    //   baseURL: "https://98vno070t3.execute-api.us-east-1.amazonaws.com",
+    //   responseType: "json"
+    // });
+  
+    function getIngredients() {
+      return axios.get('/ingredients?isPopular=False');
+    }
+
+    function getPopularIngredients() {
+      return axios.get('/ingredients?isPopular=True');
+    }
+
+    axios.all([getIngredients(), getPopularIngredients()])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+
+          setIngredients(responseOne.data);
+          setPopularIngredients(responseTwo.data);
+        })
+      ).catch(errors => {
+        // react on errors.
+        console.error(errors);
+      });
+
+  }, [])
+
+  function getFoodItem(x) {
+    const index = selectedIngredients.find(y => y.IngredientName == x.IngredientName) 
+    if (index === undefined) {
+      const ingredients = [...selectedIngredients, x]; // new array need to update
+      setSelectedIngredients(ingredients); // update the state
+      // setshowButton(true)
+    } else {
+      const filteredItems = selectedIngredients.filter(item => item.IngredientName !== x.IngredientName)
+      setSelectedIngredients(filteredItems)
+    }  
+  }
+
+
+  const Ingredient = (name, picture) => {
+    const item = {
+      IngredientName: name,
+      Picture: picture
+    };
+    // console.log(selectedIngredients.includes(item))
+    return (
+      <Flex onClick={() => getFoodItem(item)}>
+        <Overlay>
+          <IPicture src={picture} />
+        </Overlay>
+        <FoodText>
+          {name}
+          {selectedIngredients.find(x => x.IngredientName == name) ? " ✅" : null}
+        </FoodText>
+      </Flex>
+    )
+  }
+
+  function ingredientView(x) {
+    return (
+      x.map((i) =>
+        <div>
+          {Ingredient(i.IngredientName, i.Picture)}
+        </div>
+      )
+    )
+  }
+
+  const handleClick = () => {
+    console.log(selectedIngredients)
+    
+    axios.post('/recipe', selectedIngredients)
     .then(function (response) {
-      console.log(response.data)
-      setPopularIngredients(response.data)
+     const recipeData = JSON.parse(response.data.body)
+     history.push('/recipes',{data : recipeData});
     })
     .catch(function (error) {
       console.log(error);
     });
-
-
-  }, [])
-
-  function getFoodItem(food){
-
-    console.log(food);
-
-    // showResults ? setShowResults(false) : setShowResults(true)
-
-    const index = selectedIngredients.indexOf(food)
-    // setPlantColor("#16FFD0")
-    if (index === -1) {
-      const ingredients = [...selectedIngredients, food]; // new array need to update
-      setSelectedIngredients(ingredients); // update the state
-      // setshowButton(true)
-    } else {
-      const filteredItems = selectedIngredients.filter(item => item !== food)
-      setSelectedIngredients(filteredItems)
-    }
-
   }
-  
- 
-  const Ingredient = (name,picture) => {
+
+  const recipeButton = () =>{
     return (
-        <Flex onClick={()=> getFoodItem(name)}>
-        <Overlay>
-        <IPicture src={picture}/>
-        </Overlay>
-        <FoodText>
-         {name}
-         {  selectedIngredients.includes(name) ? " ✅" : null }
-        </FoodText>
-        </Flex>
+      <div>
+      <Spacer height="2vh" />
+      <Row>
+      <CustomButton onClick={handleClick}>
+        Show Recipes <ArrowImage src={Arrow}/>
+      </CustomButton>
+      </Row> 
+      </div>
     )
   }
-
-  const PingredientsView = popularIngredients.map((i) =>
-      <div>
-      {Ingredient(i.IngredientName,i.Picture)}
-      </div>
-    );
+  
   return (
-  <CustomContainer>
-    <Row>
-      <HeadingText>
-        Select your ingredients
+    <CustomContainer>
+      <Row>
+        <HeadingText>
+          Select your ingredients
       </HeadingText>
-    </Row>
-    <Row>
-      <Decoration/>
-    </Row>
-    <Row>
-      <PopularText>
-        Popular
+      </Row>
+      <Row>
+        <Decoration />
+      </Row>
+      <Row>
+        <PopularText>
+          Popular
       </PopularText>
-    </Row>
-    <Spacer height="3vh"/>
-    <GridGenerator cols={4}>
-    {popularIngredients.length ? PingredientsView: null}
-    </GridGenerator>
-    <Row>
-      <PopularText>
-        Quick <br/> Ingredients
+      </Row>
+      <Spacer height="3vh" />
+      <GridGenerator cols={4}>
+        {popularIngredients.length ? ingredientView(popularIngredients): null}
+      </GridGenerator>
+      <Row>
+        <PopularText>
+          Quick <br /> Ingredients
       </PopularText>
-    </Row>
-    <Spacer height="3vh"/>
-    <GridGenerator cols={4}>
-      {Ingredient("Rice & Curry","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-      {Ingredient("Rice","LOL")}
-    </GridGenerator>
-    <Row>
-      <PopularText>
-       Selected <br/> Ingredients
-      </PopularText>
-      
-    </Row>
-    <Row>
-    <h3>
-      {selectedIngredients.toString()}
-      </h3>
-     
-    </Row>
-  </CustomContainer>
+      </Row>
+      <Spacer height="3vh" />
+      <GridGenerator cols={4}>
+        {ingredients.length ? ingredientView(ingredients) : null}
+      </GridGenerator>
+      <Row>
+        <SelectedText>
+          Selected <br /> Ingredients
+      </SelectedText>
+      </Row>
+      <Spacer height="3vh" />
+      <Row>
+      <GridGenerator cols={4}>
+        {selectedIngredients.length ? ingredientView(selectedIngredients): <h2>No Ingredients selected.</h2>}
+      </GridGenerator>
+      </Row>
+      {selectedIngredients.length ? recipeButton(): null}
+    </CustomContainer>
   )
 }
 export default IngredientSection;

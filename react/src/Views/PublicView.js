@@ -13,6 +13,7 @@ import { ProtectedRoute } from '../Components/ProtectedRoute';
 import { NotFound } from '../Components/NotFound';
 import { Account } from '../utils/Account';
 import HomePage from '../Pages/HomePage';
+import RecipePage from '../Pages/RecipePage';
 
 
 
@@ -29,6 +30,7 @@ function PublicView(props) {
           <Route exact path='/register'  component={LoginPage} />
           <Route exact path="/register/verification" component={LoginPage}/>
           <ProtectedRoute exact path='/home'  component={HomePage} />
+          <ProtectedRoute exact path='/recipes'  component={RecipePage} />
           <Route path="*" component={NotFound}/>
           </Switch>
           </Account>
