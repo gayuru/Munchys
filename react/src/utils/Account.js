@@ -77,7 +77,7 @@ const Account = props => {
 
         onSuccess: data => {
             auth.login(()=>{
-                      history.push("/dashboard");
+                      history.push("/home");
             });
 
             user.getUserAttributes(function(err, result) {
