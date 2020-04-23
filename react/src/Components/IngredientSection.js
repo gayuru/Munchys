@@ -193,7 +193,7 @@ function IngredientSection(props) {
     
     axios.post('/recipe', selectedIngredients)
     .then(function (response) {
-     console.log(response)
+     console.log(JSON.parse(response.data.body))
     })
     .catch(function (error) {
       console.log(error);
