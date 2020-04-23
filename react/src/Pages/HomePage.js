@@ -11,6 +11,7 @@ import backgroundImage from '../media/background.jpg'
 import Typing from 'react-typing-animation';
 import InfoDecoration from '../Components/InfoDecoration';
 import IngredientSection from '../Components/IngredientSection';
+
 //Component Imports
 
 //////////////////////////////
@@ -78,12 +79,7 @@ border-radius: 0px 0px 0px 141px;
  * Displays a template component
  */
 function HomePage(props) {
-  const [currentTime, setCurrentTime] = useState(0);
   
-  useEffect(() => {
-    document.body.style.backgroundColor = '#FFF5F5'
-  }, [])
-
   return (
     <Container>
       <Row>
