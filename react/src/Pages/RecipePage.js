@@ -35,6 +35,7 @@ color: #000000;
 font-size: 20px;
 font-style: normal;
 font-weight: normal;
+width:20vw;
 `
 const RecipeHeading = styled.h2`
 margin-top:2vh;
@@ -76,7 +77,10 @@ function RecipePage(props) {
   function renderRecipes(){
     return (
       recipeData.map((x) =>
-        <Recipe/>
+      <div>
+       <Recipe data={x}/>{console.log(x)}
+      </div>
+      
       )
     )
   }

@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React from 'react';
+import React,{useState} from 'react';
 //Plugins
 import styled from 'styled-components';
 import { Container, Image, Row, Col, Badge } from 'react-bootstrap';
@@ -12,15 +12,15 @@ import heart from '../media/heart.svg'
 //////////////////////////////
 //Styled components
 const CustomRow = styled(Row)`
-width: 22.3vw;
-height: 25vh;
+min-width: 18vw;
+min-height: 25vh;
 background: #D3F8E2;
 border-radius: 18px;
 `
 const BottomRow = styled(Row)`
 background: #FFFFFF;
-width: 22.3vw;
-// height: 30vh;
+min-width: 18vw;
+min-height: 30vh;
 position: relative;
 top: -2vh;
 border-radius: 18px;
@@ -90,11 +90,13 @@ font-size: 17px;
  */
 function SingleRecipe(props) {
 
+  const [recipe, setrecipe] = useState(props.data)
+
   return (
     <Container>
       <CustomRow>
         <BadgeCustom pill variant="primary">
-          <ClockImg src={Clock} /><Time>45 min</Time>
+          <ClockImg src={Clock} /><Time>{recipe ? recipe.readyInMinutes : null}</Time>
         </BadgeCustom>
       </CustomRow>
       <BottomRow>
@@ -102,18 +104,16 @@ function SingleRecipe(props) {
           <InfoRow>
             <Col>
               <RecipeName>
-                Chef's Salad
-      </RecipeName>
+                {recipe ? recipe.title : null}
+             </RecipeName>
             </Col>
             <Col>
               <LikeButton src={heart} />
             </Col>
           </InfoRow>
           <CRow>
-            
               Lorem ipsum dolor sit amet, consectetur
               adipiscing elit, sed do eiusmod
-          
           </CRow>
           <CRow>
             <Col>
@@ -125,7 +125,7 @@ function SingleRecipe(props) {
             </Col>
             <Col>
               <Numbers>
-                1</Numbers><br />
+                {recipe ? recipe.extendedIngredients.length : null}</Numbers><br />
               <SubHeading>
                 Missed Ingredients 
               </SubHeading>
@@ -134,14 +134,14 @@ function SingleRecipe(props) {
           <CRow>
           <Col>
               <Numbers>
-                4</Numbers><br />
+                {recipe ? recipe.servings : null}</Numbers><br />
               <SubHeading>
                 Servings
               </SubHeading>
             </Col>
             <Col>
               <Numbers>
-                18.0</Numbers><br />
+                {recipe ? recipe.healthScore : null}</Numbers><br />
               <SubHeading>
               Health Score
               </SubHeading>
