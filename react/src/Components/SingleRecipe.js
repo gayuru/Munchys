@@ -48,7 +48,6 @@ font-style: normal;
 font-weight: bold;
 font-size: 24px;
 float:left;
-
 `
 
 const LikeButton = styled(Image)`

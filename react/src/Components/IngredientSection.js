@@ -195,7 +195,8 @@ function IngredientSection(props) {
     axios.post('/recipe', selectedIngredients)
     .then(function (response) {
      const recipeData = JSON.parse(response.data.body)
-     history.push('/recipes',{data : recipeData});
+     const dataPass = [selectedIngredients,recipeData]
+     history.push('/recipes',{data : dataPass});
     })
     .catch(function (error) {
       console.log(error);

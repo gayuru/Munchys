@@ -1,16 +1,17 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useState} from 'react';
-import { Container,Image,Row,Col ,Badge} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Badge, Col, Container, Image, Row } from 'react-bootstrap';
 //Plugins
 import styled from 'styled-components';
-import Banner from '../media/banner.svg'
-import logo from '../media/logo-coloured.svg'
-import heart from '../media/heart.svg'
+import Banner from '../media/banner.svg';
+import heart from '../media/heart.svg';
+import logo from '../media/logo-coloured.svg';
+import GridGenerator from '../Components/GridGenerator';
 
-//Component Imports
 import Recipe from '../Components/SingleRecipe'
+
 //////////////////////////////
 //Styled components
 const Logo = styled(Image)`
@@ -49,7 +50,9 @@ const CustomRow = styled(Row)`
 margin-top:3vh;
 height:100vh;
 `
-
+const Spacer = styled.div`
+  height: ${props => props.height};
+`
 //////////////////////////////
 //Component class
 /**
@@ -57,15 +60,23 @@ height:100vh;
  */
 function RecipePage(props) {
 
-  const [recipeData, setrecipeData] = useState(props.location.state.data);
-  const ingredients = ["Chicken","Noodles"]
+  const [recipeData, setrecipeData] = useState(props.location.state.data[1]);
+  const [ingredients,setIngredients] = useState(props.location.state.data[0])
 
   function renderIngredients(){
     return (
       ingredients.map((i) =>
       <BadgeCustom pill variant="primary">
-      {i}
+      {i.IngredientName}
       </BadgeCustom>
+      )
+    )
+  }
+
+  function renderRecipes(){
+    return (
+      recipeData.map((x) =>
+        <Recipe/>
       )
     )
   }
@@ -86,6 +97,7 @@ function RecipePage(props) {
     <Row>
     <IngredientText>
         Ingredients Chosen {renderIngredients()}
+        {console.log(recipeData)}
     </IngredientText>
     </Row>
     <Row>
@@ -93,13 +105,10 @@ function RecipePage(props) {
       Recipes generated
       </RecipeHeading>
     </Row>
-    <CustomRow>
-      <Col>
-      <Recipe/></Col>
-     
-    
-    </CustomRow>
-    
+    <Spacer height="3vh" />
+      <GridGenerator cols={4}>
+        {recipeData.length ? renderRecipes(): null}
+      </GridGenerator>
   </Container>
   )
 }
