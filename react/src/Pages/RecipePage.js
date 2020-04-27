@@ -9,9 +9,9 @@ import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import GridGenerator from '../Components/GridGenerator';
-
+import Back from '../media/back.svg';
 import Recipe from '../Components/SingleRecipe'
-
+import { Link, useHistory } from "react-router-dom";
 //////////////////////////////
 //Styled components
 const Logo = styled(Image)`
@@ -23,6 +23,12 @@ const Heart = styled(Image)`
 float:right;
 margin-top:5vh;
 `
+
+const GoBack = styled(Image)`
+margin:0px 15px 5px 0px;
+height:30px
+`
+
 const IngredientText = styled.h2`
 font-size: 38px;
 margin-top:2vh;
@@ -62,7 +68,7 @@ function RecipePage(props) {
 
   const [recipeData, setrecipeData] = useState(props.location.state.data[1]);
   const [ingredients,setIngredients] = useState(props.location.state.data[0])
-
+  let history = useHistory();
   function renderIngredients(){
     return (
       ingredients.map((i) =>
@@ -105,7 +111,8 @@ function RecipePage(props) {
     </Row>
     <Row>
       <RecipeHeading>
-      Recipes generated
+      <Link onClick={() => { history.push('/home')}}><GoBack src={Back} />
+      </Link>Recipes generated
       </RecipeHeading>
     </Row>
     <Spacer height="3vh" />

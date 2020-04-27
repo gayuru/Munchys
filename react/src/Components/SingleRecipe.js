@@ -14,7 +14,8 @@ import heart from '../media/heart.svg'
 const CustomRow = styled(Row)`
 min-width: 378px;
 min-height: 25vh;
-background: url(${props => props.url});
+background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) center ;
+
 border-radius: 18px;
 `
 const BottomRow = styled(Row)`
