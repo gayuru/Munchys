@@ -109,6 +109,13 @@ function SingleRecipe(props) {
     return cleanText+".";
   }
 
+  function ReturnVegan(y){
+    if(y === true){
+      return "Yes"
+    }else{
+      return "No"
+    }
+  }
   return (
     <CustomContainer>
       <CustomRow url={recipe ? recipe.image : " " }>
@@ -136,9 +143,9 @@ function SingleRecipe(props) {
           <CRow>
             <Col>
               <Numbers>
-                2</Numbers><br />
+                {recipe ? ReturnVegan(recipe.vegan) : null}</Numbers><br />
               <SubHeading>
-                Used Ingredients 
+                Vegan
               </SubHeading>
             </Col>
             <Col>
