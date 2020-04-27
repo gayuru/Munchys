@@ -35,7 +35,6 @@ color: #000000;
 font-size: 20px;
 font-style: normal;
 font-weight: normal;
-width:20vw;
 `
 const RecipeHeading = styled.h2`
 margin-top:2vh;
@@ -80,11 +79,11 @@ function RecipePage(props) {
       <div>
        <Recipe data={x}/>{console.log(x)}
       </div>
-      
       )
     )
   }
 
+ 
   return (
   <Container>
     <Row>
@@ -110,7 +109,7 @@ function RecipePage(props) {
       </RecipeHeading>
     </Row>
     <Spacer height="3vh" />
-      <GridGenerator cols={4}>
+      <GridGenerator cols={3}>
         {recipeData.length ? renderRecipes(): null}
       </GridGenerator>
   </Container>

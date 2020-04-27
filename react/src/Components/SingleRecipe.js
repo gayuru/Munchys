@@ -12,14 +12,14 @@ import heart from '../media/heart.svg'
 //////////////////////////////
 //Styled components
 const CustomRow = styled(Row)`
-min-width: 18vw;
+min-width: 378px;
 min-height: 25vh;
-background: #D3F8E2;
+background: url(${props => props.url});
 border-radius: 18px;
 `
 const BottomRow = styled(Row)`
 background: #FFFFFF;
-min-width: 18vw;
+min-width:  378px;
 min-height: 30vh;
 position: relative;
 top: -2vh;
@@ -30,13 +30,14 @@ justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: row;
-width: 102px;
+// width: 102px;
+padding:20px;
 height: 38px;
 left: 96px;
 top: 823px;
 margin-left:1vw;
 margin-top:0.5vw;
-background: #FFBEBE;
+background: rgba(255, 190, 190, 0.68);;
 border-radius: 9px;
 `
 const ClockImg = styled(Image)`
@@ -57,12 +58,17 @@ width:1.6vw;
 const InfoRow = styled(Row)`
 margin-top:3vh;
 // padding:10px;
-margin-left:1.2vh;
+// margin-left:1.2vh;
 margin-right:1.2vh;
 `
 const CRow = styled(Row)`
-margin-top:1vh;
-padding:5px;
+// margin-top:1vh;
+// margin
+// margin-left:20px;
+// margin-right:20px;
+`
+const Summary = styled.div`
+padding:20px;
 `
 const Numbers = styled.span`
 font-weight: bold;
@@ -83,6 +89,9 @@ font-style: normal;
 font-weight: normal;
 font-size: 17px;
 `
+const CustomContainer = styled(Container)`
+// margin-right:10vw;
+`
 //////////////////////////////
 //Component class
 /**
@@ -92,17 +101,24 @@ function SingleRecipe(props) {
 
   const [recipe, setrecipe] = useState(props.data)
 
+  function ValidString(x){
+    var dotPosition = x.indexOf(".");
+    var theBitBeforeTheDot = x.substring(0, dotPosition);
+    var cleanText = theBitBeforeTheDot.replace(/<\/?[^>]+(>|$)/g, "");
+    return cleanText+".";
+  }
+
   return (
-    <Container>
-      <CustomRow>
+    <CustomContainer>
+      <CustomRow url={recipe ? recipe.image : " " }>
         <BadgeCustom pill variant="primary">
-          <ClockImg src={Clock} /><Time>{recipe ? recipe.readyInMinutes : null}</Time>
+          <ClockImg src={Clock} /><Time>{recipe ? recipe.readyInMinutes : null} mins</Time>
         </BadgeCustom>
       </CustomRow>
       <BottomRow>
         <Container>
           <InfoRow>
-            <Col>
+            <Col xs={8}>
               <RecipeName>
                 {recipe ? recipe.title : null}
              </RecipeName>
@@ -112,8 +128,9 @@ function SingleRecipe(props) {
             </Col>
           </InfoRow>
           <CRow>
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod
+            <Summary>
+            {recipe ? ValidString(recipe.summary) : null}
+            </Summary>
           </CRow>
           <CRow>
             <Col>
@@ -152,7 +169,7 @@ function SingleRecipe(props) {
    
       </BottomRow>
 
-    </Container>
+    </CustomContainer>
   )
 }
 export default SingleRecipe;
