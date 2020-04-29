@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Badge, Col, Container, Image, Row } from 'react-bootstrap';
 //Plugins
 import styled from 'styled-components';
@@ -12,7 +12,11 @@ import logo from '../media/logo-coloured.svg';
 import GridGenerator from '../Components/GridGenerator';
 import Back from '../media/back.svg';
 import Recipe from '../Components/SingleRecipe'
+import Pool from '../utils/UserPool';
 import { Link, useHistory } from "react-router-dom";
+
+const axios = require('axios').default;
+
 //////////////////////////////
 //Styled components
 const Logo = styled(Image)`
@@ -61,21 +65,17 @@ const Spacer = styled.div`
   height: ${props => props.height};
 `
 //////////////////////////////
-//Component class
+//Recipe class
 /**
  * Displays a template component
  */
 function RecipePage(props) {
-
-  
   let history = useHistory();
-
- 
 
   const RecipeView = () => {
     const [recipeData, setrecipeData] = useState(props.location.state.data[1]);
-  const [ingredients, setIngredients] = useState(props.location.state.data[0]);
-  
+    const [ingredients, setIngredients] = useState(props.location.state.data[0]);
+
     function renderIngredients() {
       return (
         ingredients.map((i) =>
@@ -85,7 +85,7 @@ function RecipePage(props) {
         )
       )
     }
-  
+
     function renderRecipes() {
       return (
         recipeData.map((x) =>
@@ -95,49 +95,99 @@ function RecipePage(props) {
         )
       )
     }
-    return(
-    <Container>
-      <Row>
-        <Col>
-          <Logo src={logo} />
-        </Col>
-        <Col>
-          <Heart onClick={()=>history.push('/saved-recipes')}src={heart} />
-        </Col>
-      </Row>
-      <Row>
-        <Image src={Banner} fluid />
-      </Row>
-      <Row>
-        <IngredientText>
-          Ingredients Chosen {renderIngredients()}
-          {/* {console.log(recipeData)} */}
-        </IngredientText>
-      </Row>
-      <Row>
-        <RecipeHeading>
-          <Link onClick={() => { history.push('/home') }}><GoBack src={Back} />
-          </Link>Recipes generated
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <Logo src={logo} />
+          </Col>
+          <Col>
+            <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
+          </Col>
+        </Row>
+        <Row>
+          <Image src={Banner} fluid />
+        </Row>
+        <Row>
+          <IngredientText>
+            Ingredients Chosen {renderIngredients()}
+            {/* {console.log(recipeData)} */}
+          </IngredientText>
+        </Row>
+        <Row>
+          <RecipeHeading>
+            <Link onClick={() => { history.push('/home') }}><GoBack src={Back} />
+            </Link>Recipes generated
         </RecipeHeading>
-      </Row>
-      <Spacer height="3vh" />
-      <GridGenerator cols={3}>
-        {recipeData.length ? renderRecipes() : null}
-      </GridGenerator>
-    </Container>
+        </Row>
+        <Spacer height="3vh" />
+        <GridGenerator cols={3}>
+          {recipeData.length ? renderRecipes() : null}
+        </GridGenerator>
+      </Container>
     )
   }
 
+  const SavedRecipes = () => {
+
+    const [recipeData, setrecipeData] = useState("");
+    const user = Pool.getCurrentUser();
+    console.log(user.username)
+    useEffect(() => {
+      axios.get(`/fav-recipes?userId=${user.username}`)
+        .then(function (response) {
+          const data = JSON.parse(response.data.body)
+          setrecipeData(data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, [window.location.pathname])
+
+
+
+    function renderRecipes() {
+      return (
+        recipeData.map((x) =>
+          <div>
+            <Recipe data={x} />
+          </div>
+        )
+      )
+    }
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <Logo src={logo} />
+          </Col>
+        </Row>
+        <Row>
+          <Image src={Banner} fluid />
+        </Row>
+        <Row>
+          <RecipeHeading>
+            <Link onClick={() => { history.push('/home') }}><GoBack src={Back} />
+            </Link>Saved Recipes
+        </RecipeHeading>
+        </Row>
+        <Spacer height="3vh" />
+        <GridGenerator cols={3}>
+          {recipeData.length ? renderRecipes() : null}
+        </GridGenerator>
+      </Container>
+    )
+  }
+
+
   if (window.location.pathname === "/recipes") {
     return (
-      <RecipeView/>
+      <RecipeView />
     )
   } else if (window.location.pathname === "/saved-recipes") {
     return (
       <React.Fragment>
-        <h1>
-          lol
-        </h1>
+       <SavedRecipes/>
       </React.Fragment>
     )
   } else {

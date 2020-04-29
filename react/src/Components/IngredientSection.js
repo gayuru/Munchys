@@ -143,7 +143,7 @@ function IngredientSection(props) {
         console.error(errors);
       });
 
-  }, [])
+  }, [window.location.pathname])
 
   function getFoodItem(x) {
     const index = selectedIngredients.find(y => y.IngredientName == x.IngredientName) 
