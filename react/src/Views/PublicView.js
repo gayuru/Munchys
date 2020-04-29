@@ -31,6 +31,7 @@ function PublicView(props) {
           <Route exact path="/register/verification" component={LoginPage}/>
           <ProtectedRoute exact path='/home'  component={HomePage} />
           <ProtectedRoute exact path='/recipes'  component={RecipePage} />
+          <ProtectedRoute exact path='/saved-recipes'  component={RecipePage} />
           <Route path="*" component={NotFound}/>
           </Switch>
           </Account>

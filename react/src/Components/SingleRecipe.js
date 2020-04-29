@@ -150,7 +150,7 @@ function SingleRecipe(props) {
         console.log(response.data)
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
   }
 
