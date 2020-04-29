@@ -7,6 +7,7 @@ import { Badge, Col, Container, Image, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
+import heartUnlike from '../media/heart-unliked.svg';
 import logo from '../media/logo-coloured.svg';
 import GridGenerator from '../Components/GridGenerator';
 import Back from '../media/back.svg';

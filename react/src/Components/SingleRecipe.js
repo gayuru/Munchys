@@ -4,9 +4,13 @@
 import React,{useState} from 'react';
 //Plugins
 import styled from 'styled-components';
-import { Container, Image, Row, Col, Badge } from 'react-bootstrap';
+import { Container, Image, Row, Col, Badge,Button } from 'react-bootstrap';
 import Clock from '../media/clock.svg'
+import heartUnlike from '../media/heart-unliked.svg'
 import heart from '../media/heart.svg'
+import Pool from '../utils/UserPool';
+const axios = require('axios').default;
+
 //Component Imports
 
 //////////////////////////////
@@ -56,6 +60,20 @@ const LikeButton = styled(Image)`
 float:right;
 width:1.6vw;
 `
+
+const HeartButton = styled(Button)`
+background:none;
+border:none;
+
+&:hover,&:focus,&:active,&:visited,&:link{
+  color: none !important;
+  background-color: none; !important;
+  background:none;
+  border:none;
+  border-color: none; !important;
+  outline: 0 !important;
+}
+`
 const InfoRow = styled(Row)`
 margin-top:3vh;
 // padding:10px;
@@ -101,7 +119,7 @@ const CustomContainer = styled(Container)`
 function SingleRecipe(props) {
 
   const [recipe, setrecipe] = useState(props.data)
-
+  const [likeButton,setLikeButton] = useState(heartUnlike)
   function ValidString(x){
     var dotPosition = x.indexOf(".");
     var theBitBeforeTheDot = x.substring(0, dotPosition);
@@ -116,6 +134,26 @@ function SingleRecipe(props) {
       return "No"
     }
   }
+
+  function handleClick(id){
+    likeButton === heart ? setLikeButton(heartUnlike) : setLikeButton(heart);
+    
+    const user = Pool.getCurrentUser();
+    // console.log(user.username);
+
+    const fav = {
+      "userId" :user.username,
+      "recipeId": id
+    }
+    axios.post('/fav-recipes', fav)
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   return (
     <CustomContainer>
       <CustomRow url={recipe ? recipe.image : " " }>
@@ -132,7 +170,9 @@ function SingleRecipe(props) {
              </RecipeName>
             </Col>
             <Col>
-              <LikeButton src={heart} />
+              {/* <HeartButton onClick={handleClick}> */}
+                <LikeButton onClick={()=>handleClick(recipe.id)} src={likeButton} />
+                {/* </HeartButton> */}
             </Col>
           </InfoRow>
           <CRow>

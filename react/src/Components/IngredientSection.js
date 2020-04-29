@@ -13,8 +13,6 @@ import GridGenerator from './GridGenerator';
 const axios = require('axios').default;
 
 
-
-
 //Component Imports
 
 //////////////////////////////
@@ -195,6 +193,7 @@ function IngredientSection(props) {
     axios.post('/recipe', selectedIngredients)
     .then(function (response) {
      const recipeData = JSON.parse(response.data.body)
+     console.log(recipeData)
      const dataPass = [selectedIngredients,recipeData]
      history.push('/recipes',{data : dataPass});
     })
@@ -215,6 +214,7 @@ function IngredientSection(props) {
       </div>
     )
   }
+  
   
   return (
     <CustomContainer>
