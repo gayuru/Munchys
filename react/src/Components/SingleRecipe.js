@@ -154,6 +154,20 @@ function SingleRecipe(props) {
       });
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  
+  const getExt = (i)=>{
+    var str= "";
+    for (let index = 0; index < i.length; index++) {
+      const element = i[index];
+      str += index+1 + ". " + capitalizeFirstLetter(element.name) + "\n";
+    }
+    return str;
+  }
+
   const OverlayIng = ()=>{
     return(
       <>
@@ -161,11 +175,14 @@ function SingleRecipe(props) {
         placement="top"
         overlay={
           <Tooltip>
-            Tooltip on <strong>lol</strong>.
+           {
+             getExt(recipe.extendedIngredients)
+          }
           </Tooltip>
         }
       >
        <Numbers>
+         {console.log(recipe.extendedIngredients)}
          {recipe.extendedIngredients.length}
        </Numbers>
       </OverlayTrigger>
