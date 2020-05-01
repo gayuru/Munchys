@@ -4,7 +4,7 @@
 import React,{useState} from 'react';
 //Plugins
 import styled from 'styled-components';
-import { Container, Image, Row, Col, Badge,Button } from 'react-bootstrap';
+import { Container, Image, Row, Col, Badge,Button, OverlayTrigger,Tooltip} from 'react-bootstrap';
 import Clock from '../media/clock.svg'
 import heartUnlike from '../media/heart-unliked.svg'
 import heart from '../media/heart.svg'
@@ -154,6 +154,24 @@ function SingleRecipe(props) {
       });
   }
 
+  const OverlayIng = ()=>{
+    return(
+      <>
+      <OverlayTrigger
+        placement="top"
+        overlay={
+          <Tooltip>
+            Tooltip on <strong>lol</strong>.
+          </Tooltip>
+        }
+      >
+       <Numbers>
+         {recipe.extendedIngredients.length}
+       </Numbers>
+      </OverlayTrigger>
+    </>
+    )
+  }
   return (
     <CustomContainer>
       <CustomRow url={recipe ? recipe.image : " " }>
@@ -190,7 +208,7 @@ function SingleRecipe(props) {
             </Col>
             <Col>
               <Numbers>
-                {recipe ? recipe.extendedIngredients.length : null}</Numbers><br />
+                {recipe ? <OverlayIng/> : null}</Numbers><br />
               <SubHeading>
                 Missed Ingredients 
               </SubHeading>
