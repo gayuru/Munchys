@@ -102,6 +102,9 @@ function RecipePage(props) {
             <Logo src={logo} />
           </Col>
           <Col>
+          <audio controls="controls" preload="auto" id="audio_player">
+          <source src={"https://speech-post.s3.amazonaws.com/mynameis.mp3"}></source>
+          </audio>
             <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
           </Col>
         </Row>
@@ -124,6 +127,7 @@ function RecipePage(props) {
         <GridGenerator cols={3}>
           {recipeData.length ? renderRecipes() : null}
         </GridGenerator>
+        
       </Container>
     )
   }
