@@ -127,6 +127,12 @@ align-items: center;
 
 const MainRow = styled(Row)`
 margin-top:3vh;
+`
+const LabelIngredient = styled.label`
+margin-left:1vw;
+`
+
+const CustomCheckbox = styled.input`
 
 `
 //////////////////////////////
@@ -143,100 +149,150 @@ function Recipe(props) {
     console.log("make this recipe favourite")
   }
 
-  const RenderTop = ()=>{
-    return(
+  const RenderTop = () => {
+    return (
       <>
-      <Col>
-      <CustomImage/>
-      </Col>
-      <Col>
-      <HeadingSection>
-        <Image src={Clock}/> 
-        <TimeText>
-          30min
+        <Col>
+          <CustomImage />
+        </Col>
+        <Col>
+          <HeadingSection>
+            <Image src={Clock} />
+            <TimeText>
+              30min
         </TimeText>
-        <TimeText>
-          |
+            <TimeText>
+              |
         </TimeText>
-        <TimeText>
-          by John Doe
+            <TimeText>
+              by John Doe
         </TimeText>
-      </HeadingSection>
-      <HeadingSection>
-        <HeadingText>
-        Pineapple & Cucumber
-        Salad
+          </HeadingSection>
+          <HeadingSection>
+            <HeadingText>
+              Pineapple & Cucumber
+              Salad
         </HeadingText>
-      </HeadingSection>
-      <HeadingSection>
-        <BodyText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-          ut labore et dolore magna aliqua. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. 
-          Augue mauris augue neque gravida in fermentum. <br/><br/>
+          </HeadingSection>
+          <HeadingSection>
+            <BodyText>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua. Mauris pellentesque pulvinar pellentesque habitant morbi tristique.
+          Augue mauris augue neque gravida in fermentum. <br /><br />
 
           Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Pellentesque massa placerat duis ultricies lacus sed. Tincidunt tortor aliquam nulla facilisi cras.
         </BodyText>
-      </HeadingSection>
-      <HeadingSection>
-      <CustomButton onClick={handleClick}>
-        Favourite this ❤️
+          </HeadingSection>
+          <HeadingSection>
+            <CustomButton onClick={handleClick}>
+              Favourite this ❤️
       </CustomButton>
-      </HeadingSection>
-      </Col>
+          </HeadingSection>
+        </Col>
       </>
     )
   }
 
-  function Fact(props){
-    return(
+  function Fact(props) {
+    return (
       <FactCol>
-         <Row>
-      <CustomDish src={props.image}/><br/>
-      </Row>
-      <Row>
-        <MainNumber>
-        {props.fact}
-        </MainNumber>
-      </Row>
-    
-      <Row>
-        <FactSubText>
-        {props.name}
-        </FactSubText>
-      </Row>
-     
+        <Row>
+          <CustomDish src={props.image} /><br />
+        </Row>
+        <Row>
+          <MainNumber>
+            {props.fact}
+          </MainNumber>
+        </Row>
+
+        <Row>
+          <FactSubText>
+            {props.name}
+          </FactSubText>
+        </Row>
+
       </FactCol>
     )
   }
 
-  const RenderQuickFacts =()=>{
-    return(
+  const RenderQuickFacts = () => {
+    return (
       <HeadingSection>
-        <Fact image={Servings} name="Savings" fact="4"/>
-        <Fact image={Vegan} name="Vegan" fact="Yes"/>
-        <Fact image={Dish} name="Dish Type" fact="Asian"/>
-        <Fact image={Wine} name="Wine Paring" fact="Moscato"/>
+        <Fact image={Servings} name="Savings" fact="4" />
+        <Fact image={Vegan} name="Vegan" fact="Yes" />
+        <Fact image={Dish} name="Dish Type" fact="Asian" />
+        <Fact image={Wine} name="Wine Paring" fact="Moscato" />
       </HeadingSection>
     )
   }
 
-  const RenderMain = ()=>{
-    return(
+  const RenderMain = () => {
+    return (
       <MainRow>
         <Col>
-        <Row>
-          <FactText>
-            Ingredients
+          <Row>
+            <FactText>
+              Ingredients
           </FactText>
-        </Row>
-        
+          </Row>
+          <Row>
+            <div class="pretty p-icon p-round p-smooth">
+              <input type="checkbox" />
+              <div class="state p-success">
+                <i class="icon mdi mdi-check"></i>
+                <label>Tuesday</label>
+              </div>
+            </div>
+          </Row>
+          <Row>
+            <div class="pretty p-icon p-round p-smooth">
+              <input type="checkbox" />
+              <div class="state p-success">
+                <i class="icon mdi mdi-check"></i>
+                <label>Tuesday</label>
+              </div>
+            </div>
+          </Row>
+          <Row>
+            <div class="pretty p-icon p-round p-smooth">
+              <input type="checkbox" />
+              <div class="state p-success">
+                <i class="icon mdi mdi-check"></i>
+                <label>Tuesday</label>
+              </div>
+            </div>
+          </Row>
         </Col>
         <Col>
-        <Row>
-          <FactText>
-            Instructions
+          <Row>
+            <FactText>
+              Instructions
           </FactText>
-        </Row>
+          </Row>
+          <Row>
+            <BodyText>
+            1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
+            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
+             gravida in fermentum. <br/><br/>
+
+             2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
+            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
+             gravida in fermentum. <br/><br/>
+
+
+             3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
+            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
+             gravida in fermentum. <br/><br/>
+
+             4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
+            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
+             gravida in fermentum. <br/><br/>
+            </BodyText>
+          </Row>
 
         </Col>
       </MainRow>
@@ -246,25 +302,25 @@ function Recipe(props) {
   }
   return (
     <Container>
-        <Row>
-          <Col>
-            <Logo src={logo} />
-          </Col>
-          <Col>
-            <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
-          </Col>
-        </Row>
-        <Row>
-          <RenderTop/>
-        </Row>
-        <Row>
-          <FactText>
-            Quick Facts
+      <Row>
+        <Col>
+          <Logo src={logo} />
+        </Col>
+        <Col>
+          <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
+        </Col>
+      </Row>
+      <Row>
+        <RenderTop />
+      </Row>
+      <Row>
+        <FactText>
+          Quick Facts
           </FactText>
-        </Row>
-          <RenderQuickFacts/>
-          <RenderMain/>
-        </Container>
+      </Row>
+      <RenderQuickFacts />
+      <RenderMain />
+    </Container>
   )
 }
 export default Recipe;
