@@ -7,7 +7,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 //Plugins
-import Banner from '../media/banner.svg';
+import Servings from '../media/servings.svg';
+import Wine from '../media/wine.svg';
+import Vegan from '../media/vegan.svg';
+import Dish from '../media/dish.svg';
 import heart from '../media/heart.svg';
 import Clock from '../media/clock-colored.svg';
 import logo from '../media/logo-coloured.svg';
@@ -81,6 +84,10 @@ color: #000000;
   border-color: #7F95D1; !important;
 }
 `
+const CustomDish = styled(Image)`
+margin-top:2vh;
+
+`
 
 const FactText = styled.text`
 font-weight: bold;
@@ -91,7 +98,37 @@ text-align:left;
 color: #7F95D1;
 margin-top:2vh;
 `
+const FactSubText = styled.text`
+font-weight: bold;
+font-size: 23px;
+line-height: 31px;
+/* identical to box height */
+letter-spacing: -0.025em;
+margin-top:0.5vh;
+text-align:center;
+`
 
+const MainNumber = styled.text`
+font-weight: bold;
+font-size: 36px;
+// letter-spacing: -0.025em;
+// text-align:center;
+// margin-left:1vw;
+color: #7F95D1;
+// margin-top:2vh;
+`
+
+const FactCol = styled(Col)`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`
+
+const MainRow = styled(Row)`
+margin-top:3vh;
+
+`
 //////////////////////////////
 //Component class
 /**
@@ -152,23 +189,59 @@ function Recipe(props) {
 
   function Fact(props){
     return(
-      <Col>
+      <FactCol>
+         <Row>
+      <CustomDish src={props.image}/><br/>
+      </Row>
       <Row>
-        <Image src={props.image}/>
+        <MainNumber>
         {props.fact}
+        </MainNumber>
       </Row>
+    
       <Row>
+        <FactSubText>
         {props.name}
+        </FactSubText>
       </Row>
-      </Col>
+     
+      </FactCol>
     )
   }
 
   const RenderQuickFacts =()=>{
     return(
       <HeadingSection>
-        <Fact image={Clock} name="Savings" fact="4"/>
+        <Fact image={Servings} name="Savings" fact="4"/>
+        <Fact image={Vegan} name="Vegan" fact="Yes"/>
+        <Fact image={Dish} name="Dish Type" fact="Asian"/>
+        <Fact image={Wine} name="Wine Paring" fact="Moscato"/>
       </HeadingSection>
+    )
+  }
+
+  const RenderMain = ()=>{
+    return(
+      <MainRow>
+        <Col>
+        <Row>
+          <FactText>
+            Ingredients
+          </FactText>
+        </Row>
+        
+        </Col>
+        <Col>
+        <Row>
+          <FactText>
+            Instructions
+          </FactText>
+        </Row>
+
+        </Col>
+      </MainRow>
+
+
     )
   }
   return (
@@ -189,9 +262,8 @@ function Recipe(props) {
             Quick Facts
           </FactText>
         </Row>
-       
           <RenderQuickFacts/>
-        
+          <RenderMain/>
         </Container>
   )
 }
