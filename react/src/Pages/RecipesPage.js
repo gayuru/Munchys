@@ -57,9 +57,17 @@ letter-spacing: -0.025em;
 color: #7F95D1;
 `
 
-const CustomRow = styled(Row)`
-margin-top:3vh;
-height:100vh;
+const CustomLink = styled(Link)`
+text-decoration: none;
+
+&:focus,  &:visited, &:link, &:active {
+    text-decoration: none;
+    color:black;
+}
+
+&:hover{
+  color:#7F95D1;
+}
 `
 const Spacer = styled.div`
   height: ${props => props.height};
@@ -69,7 +77,7 @@ const Spacer = styled.div`
 /**
  * Displays a template component
  */
-function RecipePage(props) {
+function RecipesPage(props) {
   let history = useHistory();
 
   const RecipeView = () => {
@@ -90,7 +98,9 @@ function RecipePage(props) {
       return (
         recipeData.map((x) =>
           <div>
+            <CustomLink to={`/recipe/${x.id}`}>
             <Recipe data={x} />
+            </CustomLink>
           </div>
         )
       )
@@ -114,7 +124,7 @@ function RecipePage(props) {
         <Row>
           <IngredientText>
             Ingredients Chosen {renderIngredients()}
-            {/* {console.log(recipeData)} */}
+            {console.log(recipeData)}
           </IngredientText>
         </Row>
         <Row>
@@ -204,4 +214,4 @@ function RecipePage(props) {
 
 
 }
-export default RecipePage;
+export default RecipesPage;

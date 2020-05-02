@@ -175,14 +175,14 @@ function SingleRecipe(props) {
         placement="top"
         overlay={
           <Tooltip>
-           {
+            {
              getExt(recipe.extendedIngredients)
-          }
+            }
           </Tooltip>
         }
       >
        <Numbers>
-         {console.log(recipe.extendedIngredients)}
+         {console.log(recipe)}
          {recipe.extendedIngredients.length}
        </Numbers>
       </OverlayTrigger>
