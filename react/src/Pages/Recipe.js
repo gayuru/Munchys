@@ -139,6 +139,10 @@ margin-left:1vw;
 const CustomCheckbox = styled.input`
 
 `
+const GoBack = styled(Image)`
+margin:0px 15px 5px 0px;
+height:30px
+`
 //////////////////////////////
 //Component class
 /**
@@ -158,6 +162,7 @@ function Recipe(props) {
     axios.get(`/single-details?id=${recipeId}`)
     .then(function (response) {
      const recipeData = JSON.parse(response.data)
+     console.log(recipeData);
      setrecipe(recipeData);
     })
     .catch(function (error) {
@@ -166,6 +171,20 @@ function Recipe(props) {
     
   }, [window.location.pathname])
 
+  const FormatInstructions = (i)=>{
+    const stepArr = i[0]["steps"];
+
+    const jsx = stepArr.map((step)=>
+      <div key={step.number}>
+        {step.number + ". " + step.step}
+        <br/><br/>
+      </div>
+    )
+    
+
+    return jsx;
+
+  }
   const RenderTop = () => {
     return (
       <>
@@ -187,6 +206,7 @@ function Recipe(props) {
           </HeadingSection>
           <HeadingSection>
             <HeadingText>
+            <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link>
               {recipe ? recipe.title : null}
         </HeadingText>
           </HeadingSection>
@@ -295,26 +315,7 @@ function Recipe(props) {
           </Row>
           <Row>
             <BodyText>
-            1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
-            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
-             gravida in fermentum. <br/><br/>
-
-             2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
-            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
-             gravida in fermentum. <br/><br/>
-
-
-             3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
-            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
-             gravida in fermentum. <br/><br/>
-
-             4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris 
-            pellentesque pulvinar pellentesque habitant morbi tristique. Augue mauris augue neque
-             gravida in fermentum. <br/><br/>
+              {recipe ? FormatInstructions(recipe.analyzedInstructions) : null} 
             </BodyText>
           </Row>
 
