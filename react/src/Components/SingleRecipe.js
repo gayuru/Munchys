@@ -182,7 +182,7 @@ function SingleRecipe(props) {
         }
       >
        <Numbers>
-         {console.log(recipe)}
+         {/* {console.log(recipe)} */}
          {recipe.extendedIngredients.length}
        </Numbers>
       </OverlayTrigger>

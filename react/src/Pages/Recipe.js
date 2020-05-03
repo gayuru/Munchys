@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 
 //Plugins
 import styled from 'styled-components';
@@ -19,6 +19,7 @@ import Back from '../media/back.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
 import { Link, useHistory } from "react-router-dom";
+const axios = require('axios').default;
 
 //Component Imports
 
@@ -36,8 +37,11 @@ margin-top:5vh;
 const CustomImage = styled(Image)`
 width: 589px;
 height: 449px;
-background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) center ;
-
+background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) no-repeat center center fixed;  ;
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 border-radius: 18px;
 `
 const HeadingSection = styled(Row)`
@@ -143,35 +147,47 @@ const CustomCheckbox = styled.input`
 function Recipe(props) {
 
   const recipeId = props.match.params.id
+  const [recipe, setrecipe] = useState();
   let history = useHistory();
 
   const handleClick = () => {
     console.log("make this recipe favourite")
   }
 
+  useEffect(() => {
+    axios.get(`/single-details?id=${recipeId}`)
+    .then(function (response) {
+     const recipeData = JSON.parse(response.data)
+     setrecipe(recipeData);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+  }, [window.location.pathname])
+
   const RenderTop = () => {
     return (
       <>
         <Col>
-          <CustomImage />
+          <CustomImage url={recipe ? recipe.image : " " } />
         </Col>
         <Col>
           <HeadingSection>
             <Image src={Clock} />
             <TimeText>
-              30min
+            {recipe ? recipe.readyInMinutes : null} mins
         </TimeText>
             <TimeText>
               |
         </TimeText>
             <TimeText>
-              by John Doe
+              by {recipe ? recipe.creditsText : null} 
         </TimeText>
           </HeadingSection>
           <HeadingSection>
             <HeadingText>
-              Pineapple & Cucumber
-              Salad
+              {recipe ? recipe.title : null}
         </HeadingText>
           </HeadingSection>
           <HeadingSection>
@@ -215,11 +231,19 @@ function Recipe(props) {
     )
   }
 
+  function ReturnVegan(y){
+    if(y === true){
+      return "Yes"
+    }else{
+      return "No"
+    }
+  }
+
   const RenderQuickFacts = () => {
     return (
       <HeadingSection>
-        <Fact image={Servings} name="Savings" fact="4" />
-        <Fact image={Vegan} name="Vegan" fact="Yes" />
+        <Fact image={Servings} name="Savings" fact={recipe ? recipe.servings : null} />
+        <Fact image={Vegan} name="Vegan" fact={recipe ? ReturnVegan(recipe.vegan) : null} />
         <Fact image={Dish} name="Dish Type" fact="Asian" />
         <Fact image={Wine} name="Wine Paring" fact="Moscato" />
       </HeadingSection>
