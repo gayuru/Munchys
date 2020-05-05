@@ -81,8 +81,20 @@ function RecipesPage(props) {
   let history = useHistory();
 
   const RecipeView = () => {
-    const [recipeData, setrecipeData] = useState(props.location.state.data[1]);
+    const [recipeData, setrecipeData] = useState([]);
     const [ingredients, setIngredients] = useState(props.location.state.data[0]);
+
+
+    useEffect(() => {
+      axios.post('/recipe', ingredients)
+      .then(function (response) {
+        setrecipeData(JSON.parse(response.data.body));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+    }, [window.location.pathname])
 
     function renderIngredients() {
       return (

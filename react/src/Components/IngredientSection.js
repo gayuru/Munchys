@@ -189,17 +189,8 @@ function IngredientSection(props) {
 
   const handleClick = () => {
     console.log(selectedIngredients)
-    
-    axios.post('/recipe', selectedIngredients)
-    .then(function (response) {
-     const recipeData = JSON.parse(response.data.body)
-     console.log(recipeData)
-     const dataPass = [selectedIngredients,recipeData]
-     history.push('/recipes',{data : dataPass});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    const dataPass = [selectedIngredients]
+    history.push('/recipes',{data : dataPass});
   }
 
   const recipeButton = () =>{
