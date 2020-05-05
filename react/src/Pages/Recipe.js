@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React ,{useEffect,useState}from 'react';
+import React, { useEffect, useState } from 'react';
 
 //Plugins
 import styled from 'styled-components';
@@ -48,6 +48,7 @@ const HeadingSection = styled(Row)`
   margin-left:1vw;
   margin-top:1vh;
 `
+
 const TimeText = styled.text`
 font-weight: bold;
 font-size: 20px;
@@ -132,6 +133,13 @@ align-items: center;
 const MainRow = styled(Row)`
 margin-top:3vh;
 `
+const IRow = styled(Row)`
+margin-top:1vh;
+`
+const IText = styled.label`
+font-weight: normal;
+font-size: 19px;
+`
 const LabelIngredient = styled.label`
 margin-left:1vw;
 `
@@ -160,55 +168,52 @@ function Recipe(props) {
 
   useEffect(() => {
     axios.get(`/single-details?id=${recipeId}`)
-    .then(function (response) {
-     const recipeData = JSON.parse(response.data)
-     console.log(recipeData);
-     setrecipe(recipeData);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    
+      .then(function (response) {
+        const recipeData = JSON.parse(response.data)
+        console.log(recipeData);
+        setrecipe(recipeData);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }, [window.location.pathname])
 
-  const FormatInstructions = (i)=>{
+  const FormatInstructions = (i) => {
     const stepArr = i[0]["steps"];
 
-    const jsx = stepArr.map((step)=>
+    const jsx = stepArr.map((step) =>
       <div key={step.number}>
-        {step.number + ". " + step.step}
-        <br/><br/>
+        <IText>{step.number + ". " + step.step}</IText>
+        <br /><br />
       </div>
     )
-    
-
     return jsx;
-
   }
   const RenderTop = () => {
     return (
       <>
         <Col>
-          <CustomImage url={recipe ? recipe.image : " " } />
+          <CustomImage url={recipe ? recipe.image : " "} />
         </Col>
         <Col>
           <HeadingSection>
             <Image src={Clock} />
             <TimeText>
-            {recipe ? recipe.readyInMinutes : null} mins
+              {recipe ? recipe.readyInMinutes : null} mins
         </TimeText>
             <TimeText>
               |
         </TimeText>
             <TimeText>
-              by {recipe ? recipe.creditsText : null} 
-        </TimeText>
+              by {recipe ? recipe.creditsText : null}
+            </TimeText>
           </HeadingSection>
           <HeadingSection>
             <HeadingText>
-            <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link>
+              <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link>
               {recipe ? recipe.title : null}
-        </HeadingText>
+            </HeadingText>
           </HeadingSection>
           <HeadingSection>
             <BodyText>
@@ -251,10 +256,10 @@ function Recipe(props) {
     )
   }
 
-  function ReturnVegan(y){
-    if(y === true){
+  function ReturnVegan(y) {
+    if (y === true) {
       return "Yes"
-    }else{
+    } else {
       return "No"
     }
   }
@@ -270,6 +275,21 @@ function Recipe(props) {
     )
   }
 
+  const RenderIngredients = (ingredients) => {
+    return (
+      ingredients.map((i, idx) =>
+      <IRow>
+        <div class="pretty p-icon p-round p-smooth" key={idx}>
+          <input type="checkbox" />
+          <div class="state p-success">
+            <i class="icon mdi mdi-check"></i>
+            <IText>{i.original}</IText>
+          </div>
+        </div>
+      </IRow>
+      )
+    )
+  }
   const RenderMain = () => {
     return (
       <MainRow>
@@ -279,33 +299,7 @@ function Recipe(props) {
               Ingredients
           </FactText>
           </Row>
-          <Row>
-            <div class="pretty p-icon p-round p-smooth">
-              <input type="checkbox" />
-              <div class="state p-success">
-                <i class="icon mdi mdi-check"></i>
-                <label>Tuesday</label>
-              </div>
-            </div>
-          </Row>
-          <Row>
-            <div class="pretty p-icon p-round p-smooth">
-              <input type="checkbox" />
-              <div class="state p-success">
-                <i class="icon mdi mdi-check"></i>
-                <label>Tuesday</label>
-              </div>
-            </div>
-          </Row>
-          <Row>
-            <div class="pretty p-icon p-round p-smooth">
-              <input type="checkbox" />
-              <div class="state p-success">
-                <i class="icon mdi mdi-check"></i>
-                <label>Tuesday</label>
-              </div>
-            </div>
-          </Row>
+            {recipe ? RenderIngredients(recipe.extendedIngredients) : null}
         </Col>
         <Col>
           <Row>
@@ -315,7 +309,7 @@ function Recipe(props) {
           </Row>
           <Row>
             <BodyText>
-              {recipe ? FormatInstructions(recipe.analyzedInstructions) : null} 
+              {recipe ? FormatInstructions(recipe.analyzedInstructions) : null}
             </BodyText>
           </Row>
 
