@@ -6,6 +6,7 @@ import React from 'react';
 //Plugins
 import styled from 'styled-components';
 import { Container, Row, Col, Image } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 import Icon from '../media/icon.svg'
 //Component Imports
 
@@ -41,6 +42,9 @@ color: #000000
  * Displays a template component
  */
 function InfoDecoration(props) {
+
+  let history = useHistory();
+
   return (
     <FixedContainer fluid>
       <Row>
@@ -50,7 +54,7 @@ function InfoDecoration(props) {
             My Profile
         </ColText>
         </CustomColumn>
-        <CustomColumn background="#D3F8E2" radius="50px 0px 0px 0px">
+        <CustomColumn onClick={()=>history.push('/saved-recipes')}background="#D3F8E2" radius="50px 0px 0px 0px">
           <Image src={Icon} fluid />
           <ColText>
             Saved Recipes

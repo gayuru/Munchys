@@ -1,26 +1,31 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React from 'react';
+import React,{useState} from 'react';
 //Plugins
 import styled from 'styled-components';
-import { Container, Image, Row, Col, Badge } from 'react-bootstrap';
+import { Container, Image, Row, Col, Badge,Button, OverlayTrigger,Tooltip} from 'react-bootstrap';
 import Clock from '../media/clock.svg'
+import heartUnlike from '../media/heart-unliked.svg'
 import heart from '../media/heart.svg'
+import Pool from '../utils/UserPool';
+const axios = require('axios').default;
+
 //Component Imports
 
 //////////////////////////////
 //Styled components
 const CustomRow = styled(Row)`
-width: 22.3vw;
-height: 25vh;
-background: #D3F8E2;
+min-width: 378px;
+min-height: 25vh;
+background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) center ;
+
 border-radius: 18px;
 `
 const BottomRow = styled(Row)`
 background: #FFFFFF;
-width: 22.3vw;
-// height: 30vh;
+min-width:  378px;
+min-height: 30vh;
 position: relative;
 top: -2vh;
 border-radius: 18px;
@@ -30,13 +35,14 @@ justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: row;
-width: 102px;
+// width: 102px;
+padding:20px;
 height: 38px;
 left: 96px;
 top: 823px;
 margin-left:1vw;
 margin-top:0.5vw;
-background: #FFBEBE;
+background: rgba(255, 190, 190, 0.68);;
 border-radius: 9px;
 `
 const ClockImg = styled(Image)`
@@ -48,22 +54,40 @@ font-style: normal;
 font-weight: bold;
 font-size: 24px;
 float:left;
-
 `
 
 const LikeButton = styled(Image)`
 float:right;
 width:1.6vw;
 `
+
+const HeartButton = styled(Button)`
+background:none;
+border:none;
+
+&:hover,&:focus,&:active,&:visited,&:link{
+  color: none !important;
+  background-color: none; !important;
+  background:none;
+  border:none;
+  border-color: none; !important;
+  outline: 0 !important;
+}
+`
 const InfoRow = styled(Row)`
 margin-top:3vh;
 // padding:10px;
-margin-left:1.2vh;
+// margin-left:1.2vh;
 margin-right:1.2vh;
 `
 const CRow = styled(Row)`
-margin-top:1vh;
-padding:5px;
+// margin-top:1vh;
+// margin
+// margin-left:20px;
+// margin-right:20px;
+`
+const Summary = styled.div`
+padding:20px;
 `
 const Numbers = styled.span`
 font-weight: bold;
@@ -84,6 +108,9 @@ font-style: normal;
 font-weight: normal;
 font-size: 17px;
 `
+const CustomContainer = styled(Container)`
+// margin-right:10vw;
+`
 //////////////////////////////
 //Component class
 /**
@@ -91,42 +118,114 @@ font-size: 17px;
  */
 function SingleRecipe(props) {
 
+  const [recipe, setrecipe] = useState(props.data)
+  const [likeButton,setLikeButton] = useState(heartUnlike)
+  function ValidString(x){
+    var dotPosition = x.indexOf(".");
+    var theBitBeforeTheDot = x.substring(0, dotPosition);
+    var cleanText = theBitBeforeTheDot.replace(/<\/?[^>]+(>|$)/g, "");
+    return cleanText+".";
+  }
+
+  function ReturnVegan(y){
+    if(y === true){
+      return "Yes"
+    }else{
+      return "No"
+    }
+  }
+
+  function handleClick(id){
+    likeButton === heart ? setLikeButton(heartUnlike) : setLikeButton(heart);
+    
+    const user = Pool.getCurrentUser();
+    // console.log(user.username);
+
+    const fav = {
+      "userId" :user.username,
+      "recipeId": id
+    }
+    axios.post('/fav-recipes', fav)
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  }
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  
+  const getExt = (i)=>{
+    var str= "";
+    for (let index = 0; index < i.length; index++) {
+      const element = i[index];
+      str += index+1 + ". " + capitalizeFirstLetter(element.name) + "\n";
+    }
+    return str;
+  }
+
+  const OverlayIng = ()=>{
+    return(
+      <>
+      <OverlayTrigger
+        placement="top"
+        overlay={
+          <Tooltip>
+            {
+             getExt(recipe.extendedIngredients)
+            }
+          </Tooltip>
+        }
+      >
+       <Numbers>
+         {/* {console.log(recipe)} */}
+         {recipe.extendedIngredients.length}
+       </Numbers>
+      </OverlayTrigger>
+    </>
+    )
+  }
   return (
-    <Container>
-      <CustomRow>
+    <CustomContainer>
+      <CustomRow url={recipe ? recipe.image : " " }>
         <BadgeCustom pill variant="primary">
-          <ClockImg src={Clock} /><Time>45 min</Time>
+          <ClockImg src={Clock} /><Time>{recipe ? recipe.readyInMinutes : null} mins</Time>
         </BadgeCustom>
       </CustomRow>
       <BottomRow>
         <Container>
           <InfoRow>
-            <Col>
+            <Col xs={8}>
               <RecipeName>
-                Chef's Salad
-      </RecipeName>
+                {recipe ? recipe.title : null}
+             </RecipeName>
             </Col>
             <Col>
-              <LikeButton src={heart} />
+              {/* <HeartButton onClick={handleClick}> */}
+                <LikeButton onClick={()=>handleClick(recipe.id)} src={likeButton} />
+                {/* </HeartButton> */}
             </Col>
           </InfoRow>
           <CRow>
-            
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod
-          
+            <Summary>
+            {recipe ? ValidString(recipe.summary) : null}
+            </Summary>
           </CRow>
           <CRow>
             <Col>
               <Numbers>
-                2</Numbers><br />
+                {recipe ? ReturnVegan(recipe.vegan) : null}</Numbers><br />
               <SubHeading>
-                Used Ingredients 
+                Vegan
               </SubHeading>
             </Col>
             <Col>
               <Numbers>
-                1</Numbers><br />
+                {recipe ? <OverlayIng/> : null}</Numbers><br />
               <SubHeading>
                 Missed Ingredients 
               </SubHeading>
@@ -135,14 +234,14 @@ function SingleRecipe(props) {
           <CRow>
           <Col>
               <Numbers>
-                4</Numbers><br />
+                {recipe ? recipe.servings : null}</Numbers><br />
               <SubHeading>
                 Servings
               </SubHeading>
             </Col>
             <Col>
               <Numbers>
-                18.0</Numbers><br />
+                {recipe ? recipe.healthScore : null}</Numbers><br />
               <SubHeading>
               Health Score
               </SubHeading>
@@ -153,7 +252,7 @@ function SingleRecipe(props) {
    
       </BottomRow>
 
-    </Container>
+    </CustomContainer>
   )
 }
 export default SingleRecipe;
