@@ -13,8 +13,6 @@ import GridGenerator from './GridGenerator';
 const axios = require('axios').default;
 
 
-
-
 //Component Imports
 
 //////////////////////////////
@@ -145,7 +143,7 @@ function IngredientSection(props) {
         console.error(errors);
       });
 
-  }, [])
+  }, [window.location.pathname])
 
   function getFoodItem(x) {
     const index = selectedIngredients.find(y => y.IngredientName == x.IngredientName) 
@@ -191,15 +189,16 @@ function IngredientSection(props) {
 
   const handleClick = () => {
     console.log(selectedIngredients)
-    
-    axios.post('/recipe', selectedIngredients)
-    .then(function (response) {
-     const recipeData = JSON.parse(response.data.body)
-     history.push('/recipes',{data : recipeData});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // localStorage.removeItem('ingredients');
+    localStorage.setItem('ingredients', JSON.stringify(selectedIngredients));
+ 
+  // getter
+
+  
+  // remove
+  
+    const dataPass = [selectedIngredients]
+    history.push('/recipes');
   }
 
   const recipeButton = () =>{
@@ -214,6 +213,7 @@ function IngredientSection(props) {
       </div>
     )
   }
+  
   
   return (
     <CustomContainer>
