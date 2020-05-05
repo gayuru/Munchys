@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 //Plugins
 import Servings from '../media/servings.svg';
-import Wine from '../media/wine.svg';
+import Biology from '../media/biology.svg';
 import Vegan from '../media/vegan.svg';
 import Dish from '../media/dish.svg';
 import heart from '../media/heart.svg';
@@ -264,10 +264,10 @@ function Recipe(props) {
   const RenderQuickFacts = () => {
     return (
       <HeadingSection>
-        <Fact image={Servings} name="Savings" fact={recipe ? recipe.servings : null} />
-        <Fact image={Vegan} name="Vegan" fact={recipe ? ReturnVegan(recipe.vegan) : null} />
-        <Fact image={Dish} name="Dish Type" fact="Asian" />
-        <Fact image={Wine} name="Wine Paring" fact="Moscato" />
+        <Fact image={Servings} name="Savings" fact={recipe ? recipe.servings : "--"} />
+        <Fact image={Vegan} name="Vegan" fact={recipe ? ReturnVegan(recipe.vegan) : "--"} />
+        <Fact image={Dish} name="Dish Type" fact={recipe ? recipe.dishTypes[0].replace(/\b\w/g, l => l.toUpperCase()) : "--"}/>
+        <Fact image={Biology} name="Health Score" fact={recipe ? recipe.healthScore : "--"} />
       </HeadingSection>
     )
   }
