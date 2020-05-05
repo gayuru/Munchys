@@ -19,6 +19,7 @@ import Back from '../media/back.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
 import { Link, useHistory } from "react-router-dom";
+import { Markup } from 'interweave';
 const axios = require('axios').default;
 
 //Component Imports
@@ -217,11 +218,7 @@ function Recipe(props) {
           </HeadingSection>
           <HeadingSection>
             <BodyText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua. Mauris pellentesque pulvinar pellentesque habitant morbi tristique.
-          Augue mauris augue neque gravida in fermentum. <br /><br />
-
-          Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Pellentesque massa placerat duis ultricies lacus sed. Tincidunt tortor aliquam nulla facilisi cras.
+            <Markup content={recipe ? recipe.summary : "No Description"} />
         </BodyText>
           </HeadingSection>
           <HeadingSection>
