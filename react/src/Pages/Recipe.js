@@ -161,10 +161,24 @@ function Recipe(props) {
 
   const recipeId = props.match.params.id
   const [recipe, setrecipe] = useState();
+  const [fav,setFav] = useState("Favourite this ❤️")
   let history = useHistory();
 
   const handleClick = () => {
-    console.log("make this recipe favourite")
+    const user = Pool.getCurrentUser();
+    // console.log(user.username);
+
+    const fav = {
+      "userId" :user.username,
+      "recipeId": recipe.id
+    }
+    axios.post('/fav-recipes', fav)
+      .then(function (response) {
+        setFav("Favourited 🥰")
+      })
+      .catch(function (error) {
+        alert(error);
+      });
   }
 
   useEffect(() => {
@@ -223,7 +237,7 @@ function Recipe(props) {
           </HeadingSection>
           <HeadingSection>
             <CustomButton onClick={handleClick}>
-              Favourite this ❤️
+              {fav}
       </CustomButton>
           </HeadingSection>
         </Col>
