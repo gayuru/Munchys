@@ -189,8 +189,16 @@ function IngredientSection(props) {
 
   const handleClick = () => {
     console.log(selectedIngredients)
+    // localStorage.removeItem('ingredients');
+    localStorage.setItem('ingredients', JSON.stringify(selectedIngredients));
+ 
+  // getter
+
+  
+  // remove
+  
     const dataPass = [selectedIngredients]
-    history.push('/recipes',{data : dataPass});
+    history.push('/recipes');
   }
 
   const recipeButton = () =>{

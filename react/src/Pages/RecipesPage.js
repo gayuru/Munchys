@@ -82,12 +82,13 @@ function RecipesPage(props) {
 
   const RecipeView = () => {
     const [recipeData, setrecipeData] = useState([]);
-    const [ingredients, setIngredients] = useState(props.location.state.data[0]);
+    const [ingredients, setIngredients] = useState(JSON.parse(localStorage.getItem('ingredients')));
 
 
     useEffect(() => {
       axios.post('/recipe', ingredients)
       .then(function (response) {
+        console.log(localStorage.getItem('ingredients'))
         setrecipeData(JSON.parse(response.data.body));
       })
       .catch(function (error) {
