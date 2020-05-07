@@ -300,7 +300,7 @@ function Recipe(props) {
   const RenderQuickFacts = () => {
     return (
       <HeadingSection>
-        <Fact image={Servings} name="Savings" fact={recipe ? recipe.servings : "--"} />
+        <Fact image={Servings} name="Servings" fact={recipe ? recipe.servings : "--"} />
         <Fact image={Vegan} name="Vegan" fact={recipe ? ReturnVegan(recipe.vegan) : "--"} />
         <Fact image={Dish} name="Dish Type" fact={recipe ? recipe.dishTypes[0].replace(/\b\w/g, l => l.toUpperCase()) : "--"}/>
         <Fact image={Biology} name="Health Score" fact={recipe ? recipe.healthScore : "--"} />
