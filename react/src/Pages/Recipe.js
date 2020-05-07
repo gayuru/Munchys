@@ -20,6 +20,7 @@ import Back from '../media/back.svg';
 import Pool from '../utils/UserPool';
 import { Link, useHistory } from "react-router-dom";
 import { Markup } from 'interweave';
+import ReactPlayer from 'react-player'
 const axios = require('axios').default;
 
 //Component Imports
@@ -192,8 +193,13 @@ function Recipe(props) {
         const recipeData = JSON.parse(response.data)
         console.log(recipeData);
         setrecipe(recipeData);
-
-        axios.post(`/texttospeech?text=${recipeData.instructions}&RecipeName=${recipeData.title}`)
+        
+        const speech={
+          "RecipeName": recipeData.title,
+          "text": recipeData.instructions
+        }
+        console.log(speech)
+        axios.post('/texttospeech',speech)
         .then(function (response) {
           setAudioReady(true);
           console.log("MP3 is being downloaded")
