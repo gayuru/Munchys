@@ -18,8 +18,11 @@ const axios = require('axios').default;
 const CustomRow = styled(Row)`
 min-width: 378px;
 min-height: 25vh;
-background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) center ;
-
+background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) no-repeat center center fixed ;
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 border-radius: 18px;
 `
 const BottomRow = styled(Row)`
