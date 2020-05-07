@@ -38,7 +38,7 @@ margin-top:5vh;
 const CustomImage = styled(Image)`
 width: 589px;
 height: 449px;
-background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) no-repeat center center fixed;  ;
+background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) no-repeat center center fixed;  
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -133,6 +133,7 @@ align-items: center;
 
 const MainRow = styled(Row)`
 margin-top:3vh;
+margin-bottom:10vh;
 `
 const IRow = styled(Row)`
 margin-top:1vh;
@@ -145,8 +146,11 @@ const LabelIngredient = styled.label`
 margin-left:1vw;
 `
 
-const CustomCheckbox = styled.input`
-
+const CustomAudio = styled.audio`
+margin-top:1vh;
+.audio{
+  background-color:green;
+}
 `
 const GoBack = styled(Image)`
 margin:0px 15px 5px 0px;
@@ -162,6 +166,7 @@ function Recipe(props) {
   const recipeId = props.match.params.id
   const [recipe, setrecipe] = useState();
   const [fav,setFav] = useState("Favourite this ❤️")
+  const [audioReady,setAudioReady] = useState(false);
   let history = useHistory();
 
   const handleClick = () => {
@@ -187,6 +192,17 @@ function Recipe(props) {
         const recipeData = JSON.parse(response.data)
         console.log(recipeData);
         setrecipe(recipeData);
+
+        axios.post(`/texttospeech?text=${recipeData.instructions}&RecipeName=${recipeData.title}`)
+        .then(function (response) {
+          setAudioReady(true);
+          console.log("MP3 is being downloaded")
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
       })
       .catch(function (error) {
         console.log(error);
@@ -319,9 +335,14 @@ function Recipe(props) {
           </FactText>
           </Row>
           <Row>
+
             <BodyText>
+              
               {recipe ? FormatInstructions(recipe.analyzedInstructions) : null}
             </BodyText>
+            {audioReady ?  <CustomAudio controls="controls" preload="auto" id="audio_player">
+            <source src={`https://speech-post.s3.amazonaws.com/${recipe.title}.mp3`}></source>
+            </CustomAudio> : null}
           </Row>
 
         </Col>
