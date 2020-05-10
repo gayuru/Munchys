@@ -14,8 +14,8 @@ import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import Pool from '../utils/UserPool';
 import { trackPromise } from 'react-promise-tracker';
+import Loading from '../Components/Loading'
 const axios = require('axios').default;
-
 //////////////////////////////
 //Styled components
 const Logo = styled(Image)`
@@ -162,6 +162,7 @@ function RecipesPage(props) {
     const user = Pool.getCurrentUser();
     console.log(user.username)
     useEffect(() => {
+      trackPromise(
       axios.get(`/fav-recipes?userId=${user.username}`)
         .then(function (response) {
           const data = JSON.parse(response.data.body)
@@ -169,7 +170,7 @@ function RecipesPage(props) {
         })
         .catch(function (error) {
           console.log(error);
-        });
+        }));
     }, [window.location.pathname])
 
     function renderRecipes() {
@@ -216,7 +217,8 @@ function RecipesPage(props) {
   } else if (window.location.pathname === "/saved-recipes") {
     return (
       <React.Fragment>
-       <SavedRecipes/>
+       {/* <SavedRecipes/> */}
+       <Loading/>
       </React.Fragment>
     )
   } else {

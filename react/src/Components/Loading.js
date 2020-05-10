@@ -13,19 +13,21 @@ import { useHistory } from "react-router-dom";
 import * as doneData from "../media/done-animation.json";
 import * as foodData from "../media/food-cooking.json";
 import { usePromiseTracker } from "react-promise-tracker";
-
+import Modal from 'react-modal';
 //Component Imports
 
 //////////////////////////////
 //Styled components
 const CustomCon = styled.div`
-// min-height: 80%;  /* Fallback for browsers do NOT support vh unit */
-// min-height: 80vh; /* These two lines are counted as one :-)       */
+// min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+// min-height: 100vh; /* These two lines are counted as one :-)       */
 
 // display: flex;
-margin-top:5vh;
-align-items: center;
+// align-items: center;
+background-color:#FFF5F5;
+
 `
+
 const LoadingRow = styled(Row)`
 justify-content: center;
 `
@@ -36,6 +38,26 @@ margin-top:1vh;
 color: #7F95D1;
 text-align:center;
 `
+const customStyles = {
+  overlay: {
+    backgroundColor: '#FFF5F5'
+  },
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    border: 'none',
+    padding:'none'
+    
+  }
+};
+
+
+// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root')
 
 //////////////////////////////
 //Component class
@@ -44,6 +66,7 @@ text-align:center;
  */
 function Loading(props) {
   const [done, setDone] = useState()
+  const [modalIsOpen,setIsOpen] = React.useState(true);
   const { promiseInProgress } = usePromiseTracker();
   const defaultOptions = {
     loop: true,
@@ -72,6 +95,11 @@ function Loading(props) {
 
     return(
             <FadeIn>
+            <Modal
+              isOpen={modalIsOpen}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
             <CustomCon>
             <Container>
             {!done ? (
@@ -88,12 +116,13 @@ function Loading(props) {
               </LoadingRow>
               </Container>
               </CustomCon>
+              </Modal>
             </FadeIn>
     )
   }
 
   return (
-    promiseInProgress &&
+    // promiseInProgress &&
     <RenderLoading/>
   )
 }
