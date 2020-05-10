@@ -20,6 +20,7 @@ import Back from '../media/back.svg';
 import Pool from '../utils/UserPool';
 import { Link, useHistory } from "react-router-dom";
 import { Markup } from 'interweave';
+import ReactPlayer from 'react-player'
 const axios = require('axios').default;
 
 //Component Imports
@@ -38,7 +39,7 @@ margin-top:5vh;
 const CustomImage = styled(Image)`
 width: 589px;
 height: 449px;
-background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) no-repeat center center fixed;  ;
+background: url(${props => props.url}), url(https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png) no-repeat center center fixed;  
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -133,6 +134,7 @@ align-items: center;
 
 const MainRow = styled(Row)`
 margin-top:3vh;
+margin-bottom:1vh;
 `
 const IRow = styled(Row)`
 margin-top:1vh;
@@ -145,12 +147,19 @@ const LabelIngredient = styled.label`
 margin-left:1vw;
 `
 
-const CustomCheckbox = styled.input`
-
+const CustomAudio = styled.audio`
+margin-top:1vh;
+.audio{
+  background-color:green;
+}
 `
 const GoBack = styled(Image)`
 margin:0px 15px 5px 0px;
 height:30px
+`
+
+const CustomNutrition = styled.div`
+  text-align:left;
 `
 //////////////////////////////
 //Component class
@@ -162,6 +171,8 @@ function Recipe(props) {
   const recipeId = props.match.params.id
   const [recipe, setrecipe] = useState();
   const [fav,setFav] = useState("Favourite this ❤️")
+  const [audioReady,setAudioReady] = useState(false);
+  const [nutrition,setNutrition] = useState();
   let history = useHistory();
 
   const handleClick = () => {
@@ -182,14 +193,46 @@ function Recipe(props) {
   }
 
   useEffect(() => {
-    axios.get(`/single-details?id=${recipeId}`)
-      .then(function (response) {
-        const recipeData = JSON.parse(response.data)
-        console.log(recipeData);
-        setrecipe(recipeData);
-      })
-      .catch(function (error) {
-        console.log(error);
+
+
+
+
+    function getRecipeDetails() {
+      return axios.get(`/single-details?id=${recipeId}`);
+    }
+
+    function getNutrition() {
+      return axios.get(`/recipenutrition?id=${recipeId}`);
+    }
+
+    axios.all([getRecipeDetails(), getNutrition()])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+
+          const recipeData = JSON.parse(responseOne.data)
+          setrecipe(recipeData);
+          setNutrition(responseTwo.data)
+          console.log(responseTwo.data)
+          const speech={
+            "RecipeName": recipeData.title,
+            "text": recipeData.instructions
+          }
+          console.log(speech)
+          axios.post('/texttospeech',speech)
+          .then(function (response) {
+            setAudioReady(true);
+            console.log("MP3 is being downloaded")
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        })
+      ).catch(errors => {
+        // react on errors.
+        console.error(errors);
       });
 
   }, [window.location.pathname])
@@ -278,7 +321,7 @@ function Recipe(props) {
   const RenderQuickFacts = () => {
     return (
       <HeadingSection>
-        <Fact image={Servings} name="Savings" fact={recipe ? recipe.servings : "--"} />
+        <Fact image={Servings} name="Servings" fact={recipe ? recipe.servings : "--"} />
         <Fact image={Vegan} name="Vegan" fact={recipe ? ReturnVegan(recipe.vegan) : "--"} />
         <Fact image={Dish} name="Dish Type" fact={recipe ? recipe.dishTypes[0].replace(/\b\w/g, l => l.toUpperCase()) : "--"}/>
         <Fact image={Biology} name="Health Score" fact={recipe ? recipe.healthScore : "--"} />
@@ -319,9 +362,14 @@ function Recipe(props) {
           </FactText>
           </Row>
           <Row>
+
             <BodyText>
+              
               {recipe ? FormatInstructions(recipe.analyzedInstructions) : null}
             </BodyText>
+            {audioReady ?  <CustomAudio controls="controls" preload="auto" id="audio_player">
+            <source src={`https://speech-post.s3.amazonaws.com/${recipe.title}.mp3`}></source>
+            </CustomAudio> : null}
           </Row>
 
         </Col>
@@ -330,7 +378,21 @@ function Recipe(props) {
 
     )
   }
+
+  const RenderNutrition =()=>{
+    return(
+        <CustomNutrition>
+          <Row>
+            <FactText>
+              Nutrition Overview
+          </FactText>
+          </Row>
+          <div dangerouslySetInnerHTML={{__html: nutrition}} />
+        </CustomNutrition>
+    )
+  }
   return (
+    <>
     <Container>
       <Row>
         <Col>
@@ -350,7 +412,10 @@ function Recipe(props) {
       </Row>
       <RenderQuickFacts />
       <RenderMain />
+      <RenderNutrition/>
     </Container>
+    
+      </>
   )
 }
 export default Recipe;
