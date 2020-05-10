@@ -1,26 +1,24 @@
 //Template.js
 ///////////////////////////////
 //React & Material
+import { Markup } from 'interweave';
 import React, { useEffect, useState } from 'react';
-
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { Link, useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import { Button, Col, Container, Image, Row } from 'react-bootstrap';
-//Plugins
-import Servings from '../media/servings.svg';
+import Back from '../media/back.svg';
 import Biology from '../media/biology.svg';
-import Vegan from '../media/vegan.svg';
+import Clock from '../media/clock-colored.svg';
 import Dish from '../media/dish.svg';
 import heart from '../media/heart.svg';
-import Clock from '../media/clock-colored.svg';
 import logo from '../media/logo-coloured.svg';
-import GridGenerator from '../Components/GridGenerator';
-import Back from '../media/back.svg';
+//Plugins
+import Servings from '../media/servings.svg';
+import Vegan from '../media/vegan.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
-import { Link, useHistory } from "react-router-dom";
-import { Markup } from 'interweave';
-import ReactPlayer from 'react-player'
+
 const axios = require('axios').default;
 
 //Component Imports
@@ -167,7 +165,8 @@ const CustomNutrition = styled.div`
  */
 function Recipe(props) {
 
-  const recipeId = props.match.params.id
+  const recipeId = props.match.params.id;
+  const random = props.location.state.random;
   const [recipe, setrecipe] = useState();
   const [fav,setFav] = useState("Favourite this ❤️")
   const [audioReady,setAudioReady] = useState(false);
@@ -193,9 +192,6 @@ function Recipe(props) {
 
   useEffect(() => {
 
-
-
-
     function getRecipeDetails() {
       return axios.get(`/single-details?id=${recipeId}`);
     }
@@ -213,12 +209,11 @@ function Recipe(props) {
           const recipeData = JSON.parse(responseOne.data)
           setrecipe(recipeData);
           setNutrition(responseTwo.data)
-          console.log(responseTwo.data)
           const speech={
             "RecipeName": recipeData.title,
             "text": recipeData.instructions
           }
-          console.log(speech)
+          
           axios.post('/texttospeech',speech)
           .then(function (response) {
             setAudioReady(true);
@@ -268,6 +263,7 @@ function Recipe(props) {
           </HeadingSection>
           <HeadingSection>
             <HeadingText>
+              {console.log(random)}
               <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link>
               {recipe ? recipe.title : null}
             </HeadingText>

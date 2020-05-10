@@ -1,22 +1,19 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-
-import {
-    withRouter
-} from 'react-router-dom'
-
+import React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 //Plugins
 import styled from 'styled-components';
-import LoginPage from "../Pages/LoginPage";
-
-import { ProtectedRoute } from '../Components/ProtectedRoute';
 import { NotFound } from '../Components/NotFound';
-import { Account } from '../utils/Account';
+import { ProtectedRoute } from '../Components/ProtectedRoute';
 import HomePage from '../Pages/HomePage';
-import RecipesPage from '../Pages/RecipesPage';
-import Recipe from '../Pages/Recipe';
-import RecommendedPage from '../Pages/RecommenedPage';
+import LoginPage from "../Pages/LoginPage";
 import RandomRecipePage from '../Pages/RandomRecipePage';
+import Recipe from '../Pages/Recipe';
+import RecipesPage from '../Pages/RecipesPage';
+import RecommendedPage from '../Pages/RecommenedPage';
+import { Account } from '../utils/Account';
+
+
+
 
 const Container = styled.div`
   min-height:100%;

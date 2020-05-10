@@ -1,17 +1,16 @@
 //Dashboard.js
 ///////////////////////////////
 //React & Material
-import React, { useEffect, useState } from 'react';
-import API from '../utils/api'
+import React from 'react';
+import { Container, Image, Row } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import Typing from 'react-typing-animation';
 //Plugins
 import styled from 'styled-components';
-import { Container, Row, Image, Col } from 'react-bootstrap';
-import logo from '../media/logo-coloured.svg'
-import backgroundImage from '../media/background.jpg'
-import Typing from 'react-typing-animation';
 import InfoDecoration from '../Components/InfoDecoration';
 import IngredientSection from '../Components/IngredientSection';
-import { Link, useHistory } from "react-router-dom";
+import backgroundImage from '../media/background.jpg';
+import logo from '../media/logo-coloured.svg';
 //Component Imports
 
 //////////////////////////////

@@ -1,19 +1,18 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useState,useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Col, Container, Image, Row } from 'react-bootstrap';
+import { Link, useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
+import GridGenerator from '../Components/GridGenerator';
+import Recipe from '../Components/SingleRecipe';
+import Back from '../media/back.svg';
 import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
-import heartUnlike from '../media/heart-unliked.svg';
 import logo from '../media/logo-coloured.svg';
-import GridGenerator from '../Components/GridGenerator';
-import Back from '../media/back.svg';
-import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
-import { Link, useHistory } from "react-router-dom";
 
 const axios = require('axios').default;
 
