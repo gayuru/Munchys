@@ -11,7 +11,7 @@ import backgroundImage from '../media/background.jpg'
 import Typing from 'react-typing-animation';
 import InfoDecoration from '../Components/InfoDecoration';
 import IngredientSection from '../Components/IngredientSection';
-
+import { Link, useHistory } from "react-router-dom";
 //Component Imports
 
 //////////////////////////////
@@ -83,7 +83,9 @@ function HomePage(props) {
   return (
     <Container>
       <Row>
-        <Logo src={logo} />
+          <Link to="/home">
+            <Logo src={logo} />
+          </Link>
         <Graphic />
       </Row>
       <CustomRow top="10vh">

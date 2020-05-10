@@ -122,10 +122,14 @@ function RecipesPage(props) {
       <Container>
         <Row>
           <Col>
+          <Link to="/home">
             <Logo src={logo} />
+          </Link>
           </Col>
           <Col>
-            <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
+          <Link to="/saved-recipes">
+            <Heart src={heart} />
+          </Link>
           </Col>
         </Row>
         <Row>
@@ -183,7 +187,9 @@ function RecipesPage(props) {
       <Container>
         <Row>
           <Col>
+          <Link to="/home">
             <Logo src={logo} />
+          </Link>
           </Col>
         </Row>
         <Row>

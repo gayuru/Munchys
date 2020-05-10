@@ -15,6 +15,8 @@ import { Account } from '../utils/Account';
 import HomePage from '../Pages/HomePage';
 import RecipesPage from '../Pages/RecipesPage';
 import Recipe from '../Pages/Recipe';
+import RecommendedPage from '../Pages/RecommenedPage';
+import RandomRecipePage from '../Pages/RandomRecipePage';
 
 const Container = styled.div`
   min-height:100%;
@@ -32,6 +34,8 @@ function PublicView(props) {
           <ProtectedRoute exact path='/recipes'  component={RecipesPage} />
           <ProtectedRoute exact path='/saved-recipes'  component={RecipesPage} />
           <ProtectedRoute exact path='/recipe/:id'  component={Recipe} />
+          <ProtectedRoute exact path='/recommended' component={RecommendedPage}/>
+          <ProtectedRoute exact path='/taste-your-luck' component={RandomRecipePage}/>
           <Route path="*" component={NotFound}/>
           </Switch>
           </Account>

@@ -134,7 +134,6 @@ align-items: center;
 
 const MainRow = styled(Row)`
 margin-top:3vh;
-margin-bottom:1vh;
 `
 const IRow = styled(Row)`
 margin-top:1vh;
@@ -396,7 +395,9 @@ function Recipe(props) {
     <Container>
       <Row>
         <Col>
+        <Link to="/home">
           <Logo src={logo} />
+        </Link>
         </Col>
         <Col>
           <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
