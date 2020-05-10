@@ -166,6 +166,7 @@ function RecipesPage(props) {
       axios.get(`/fav-recipes?userId=${user.username}`)
         .then(function (response) {
           const data = JSON.parse(response.data.body)
+          console.log(data)
           setrecipeData(data)
         })
         .catch(function (error) {

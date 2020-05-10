@@ -40,7 +40,8 @@ text-align:center;
 `
 const customStyles = {
   overlay: {
-    backgroundColor: '#FFF5F5'
+    backgroundColor: '#FFF5F5',
+    zIndex : '2'
   },
   content : {
     top                   : '50%',

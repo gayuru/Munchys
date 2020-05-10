@@ -63,12 +63,12 @@ const Graphic = styled.div`
 position: absolute;
 width: 606px;
 height: 1012px;
-    top: 0px;
-    right: 0px;
+top: 0px;
+right: 0px;
 z-index:-1;
 background: url(${backgroundImage})100% no-repeat;
 background-size: cover;
-    background-position: center; 
+background-position: center; 
 box-shadow: 1px -7px 53px rgba(0, 0, 0, 0.1);
 border-radius: 0px 0px 0px 141px;
 `
