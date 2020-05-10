@@ -134,7 +134,7 @@ align-items: center;
 
 const MainRow = styled(Row)`
 margin-top:3vh;
-margin-bottom:10vh;
+margin-bottom:1vh;
 `
 const IRow = styled(Row)`
 margin-top:1vh;
@@ -157,6 +157,10 @@ const GoBack = styled(Image)`
 margin:0px 15px 5px 0px;
 height:30px
 `
+
+const CustomNutrition = styled.div`
+  text-align:left;
+`
 //////////////////////////////
 //Component class
 /**
@@ -168,6 +172,7 @@ function Recipe(props) {
   const [recipe, setrecipe] = useState();
   const [fav,setFav] = useState("Favourite this ❤️")
   const [audioReady,setAudioReady] = useState(false);
+  const [nutrition,setNutrition] = useState();
   let history = useHistory();
 
   const handleClick = () => {
@@ -188,30 +193,46 @@ function Recipe(props) {
   }
 
   useEffect(() => {
-    axios.get(`/single-details?id=${recipeId}`)
-      .then(function (response) {
-        const recipeData = JSON.parse(response.data)
-        console.log(recipeData);
-        setrecipe(recipeData);
-        
-        const speech={
-          "RecipeName": recipeData.title,
-          "text": recipeData.instructions
-        }
-        console.log(speech)
-        axios.post('/texttospeech',speech)
-        .then(function (response) {
-          setAudioReady(true);
-          console.log("MP3 is being downloaded")
+
+
+
+
+    function getRecipeDetails() {
+      return axios.get(`/single-details?id=${recipeId}`);
+    }
+
+    function getNutrition() {
+      return axios.get(`/recipenutrition?id=${recipeId}`);
+    }
+
+    axios.all([getRecipeDetails(), getNutrition()])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+
+          const recipeData = JSON.parse(responseOne.data)
+          setrecipe(recipeData);
+          setNutrition(responseTwo.data)
+          console.log(responseTwo.data)
+          const speech={
+            "RecipeName": recipeData.title,
+            "text": recipeData.instructions
+          }
+          console.log(speech)
+          axios.post('/texttospeech',speech)
+          .then(function (response) {
+            setAudioReady(true);
+            console.log("MP3 is being downloaded")
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
         })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-      })
-      .catch(function (error) {
-        console.log(error);
+      ).catch(errors => {
+        // react on errors.
+        console.error(errors);
       });
 
   }, [window.location.pathname])
@@ -357,7 +378,21 @@ function Recipe(props) {
 
     )
   }
+
+  const RenderNutrition =()=>{
+    return(
+        <CustomNutrition>
+          <Row>
+            <FactText>
+              Nutrition Overview
+          </FactText>
+          </Row>
+          <div dangerouslySetInnerHTML={{__html: nutrition}} />
+        </CustomNutrition>
+    )
+  }
   return (
+    <>
     <Container>
       <Row>
         <Col>
@@ -377,7 +412,10 @@ function Recipe(props) {
       </Row>
       <RenderQuickFacts />
       <RenderMain />
+      <RenderNutrition/>
     </Container>
+    
+      </>
   )
 }
 export default Recipe;
