@@ -166,7 +166,7 @@ const CustomNutrition = styled.div`
 function Recipe(props) {
 
   const recipeId = props.match.params.id;
-  const random = props.location.state.random;
+  const [random,setRandom] = useState(false);
   const [recipe, setrecipe] = useState();
   const [fav,setFav] = useState("Favourite this ❤️")
   const [audioReady,setAudioReady] = useState(false);
@@ -191,6 +191,11 @@ function Recipe(props) {
   }
 
   useEffect(() => {
+
+    if(props.location.state !== undefined){
+      setRandom(props.location.state.random);
+    }
+    
 
     function getRecipeDetails() {
       return axios.get(`/single-details?id=${recipeId}`);
@@ -263,8 +268,7 @@ function Recipe(props) {
           </HeadingSection>
           <HeadingSection>
             <HeadingText>
-              {console.log(random)}
-              <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link>
+              {random ? null :  <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link> }
               {recipe ? recipe.title : null}
             </HeadingText>
           </HeadingSection>
