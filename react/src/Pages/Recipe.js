@@ -19,6 +19,7 @@ import Vegan from '../media/vegan.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
 
+import { trackPromise } from 'react-promise-tracker';
 const axios = require('axios').default;
 
 //Component Imports
@@ -205,9 +206,9 @@ function Recipe(props) {
       return axios.get(`/recipenutrition?id=${recipeId}`);
     }
 
-    axios.all([getRecipeDetails(), getNutrition()])
+    trackPromise(axios.all([getRecipeDetails(), getNutrition()])
       .then(
-        axios.spread((...responses) => {
+       axios.spread((...responses) => {
           const responseOne = responses[0];
           const responseTwo = responses[1];
 
@@ -232,7 +233,7 @@ function Recipe(props) {
       ).catch(errors => {
         // react on errors.
         console.error(errors);
-      });
+      }));
 
   }, [window.location.pathname])
 

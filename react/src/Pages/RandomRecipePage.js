@@ -18,15 +18,6 @@ const axios = require('axios').default;
 
 //////////////////////////////
 //Styled components
-const Logo = styled(Image)`
-  margin-top:3vh;
-  margin-bottom:4vh;
-  float:left;
-`
-const Heart = styled(Image)`
-float:right;
-margin-top:5vh;
-`
 
 const CustomCon = styled.div`
 min-height: 80%;  /* Fallback for browsers do NOT support vh unit */

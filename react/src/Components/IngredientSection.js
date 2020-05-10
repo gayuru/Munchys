@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import Arrow from '../media/arrow.svg';
 import GridGenerator from './GridGenerator';
-
+import { trackPromise } from 'react-promise-tracker';
 
 const axios = require('axios').default;
 
@@ -114,7 +114,7 @@ function IngredientSection(props) {
   const [selectedIngredients, setSelectedIngredients] = useState([])
   
   let history = useHistory();
-
+  
   useEffect(() => {
     // const instance = axios.create({
     //   baseURL: "https://98vno070t3.execute-api.us-east-1.amazonaws.com",

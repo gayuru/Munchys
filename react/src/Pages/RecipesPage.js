@@ -13,7 +13,7 @@ import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import Pool from '../utils/UserPool';
-
+import { trackPromise } from 'react-promise-tracker';
 const axios = require('axios').default;
 
 //////////////////////////////
@@ -85,6 +85,7 @@ function RecipesPage(props) {
 
 
     useEffect(() => {
+      trackPromise(
       axios.post('/recipe', ingredients)
       .then(function (response) {
         console.log(localStorage.getItem('ingredients'))
@@ -92,7 +93,7 @@ function RecipesPage(props) {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }));
       
     }, [window.location.pathname])
 
@@ -171,8 +172,6 @@ function RecipesPage(props) {
         });
     }, [window.location.pathname])
 
-
-
     function renderRecipes() {
       return (
         recipeData.map((x) =>
@@ -182,6 +181,7 @@ function RecipesPage(props) {
         )
       )
     }
+
     return (
       <Container>
         <Row>
