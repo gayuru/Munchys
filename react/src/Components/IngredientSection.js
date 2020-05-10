@@ -128,8 +128,7 @@ function IngredientSection(props) {
     function getPopularIngredients() {
       return axios.get('/ingredients?isPopular=True');
     }
-
-    axios.all([getIngredients(), getPopularIngredients()])
+    trackPromise(axios.all([getIngredients(), getPopularIngredients()])
       .then(
         axios.spread((...responses) => {
           const responseOne = responses[0];
@@ -141,7 +140,7 @@ function IngredientSection(props) {
       ).catch(errors => {
         // react on errors.
         console.error(errors);
-      });
+      }));
 
   }, [window.location.pathname])
 

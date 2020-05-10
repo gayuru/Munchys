@@ -88,11 +88,6 @@ function Loading(props) {
   };
 
   const RenderLoading=()=>{
-
-    // setTimeout(() => {
-    //   setDone(true);
-    // }, 1000);
-
     return(
             <FadeIn>
             <Modal
@@ -122,7 +117,7 @@ function Loading(props) {
   }
 
   return (
-    // promiseInProgress &&
+    promiseInProgress &&
     <RenderLoading/>
   )
 }

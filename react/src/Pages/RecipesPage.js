@@ -14,7 +14,7 @@ import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import Pool from '../utils/UserPool';
 import { trackPromise } from 'react-promise-tracker';
-import Loading from '../Components/Loading'
+
 const axios = require('axios').default;
 //////////////////////////////
 //Styled components
@@ -217,8 +217,7 @@ function RecipesPage(props) {
   } else if (window.location.pathname === "/saved-recipes") {
     return (
       <React.Fragment>
-       {/* <SavedRecipes/> */}
-       <Loading/>
+       <SavedRecipes/>
       </React.Fragment>
     )
   } else {
