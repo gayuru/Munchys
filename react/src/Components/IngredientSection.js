@@ -3,12 +3,12 @@
 //React & Material
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Image, Row } from 'react-bootstrap';
+import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
 import Arrow from '../media/arrow.svg';
 import GridGenerator from './GridGenerator';
-import { trackPromise } from 'react-promise-tracker';
 
 const axios = require('axios').default;
 

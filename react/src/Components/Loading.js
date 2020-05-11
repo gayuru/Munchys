@@ -1,19 +1,18 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useState}from 'react';
-
-//Plugins
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { Container, Row } from 'react-bootstrap';
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
-import { Container, Image, Row } from 'react-bootstrap';
-import { useHistory } from "react-router-dom";
+import Modal from 'react-modal';
+import { usePromiseTracker } from "react-promise-tracker";
+//Plugins
+import styled from 'styled-components';
 //Plugins
 import * as doneData from "../media/done-animation.json";
 import * as foodData from "../media/food-cooking.json";
-import { usePromiseTracker } from "react-promise-tracker";
-import Modal from 'react-modal';
+
 //Component Imports
 
 //////////////////////////////

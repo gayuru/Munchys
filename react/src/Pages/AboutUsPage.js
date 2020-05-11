@@ -1,19 +1,18 @@
 //Template.js
 ///////////////////////////////
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
-import { Link, useHistory } from "react-router-dom";
 import GitHubButton from 'react-github-btn';
+import { Link } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-
-import Team from '../media/team.svg';
-
+import GayuruProfile from '../media/gayuru.jpg';
 import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
-import GayuruProfile from '../media/gayuru.jpg'
-import SaadProfile from '../media/saad.jpg'
-import { trackPromise } from 'react-promise-tracker';
+import SaadProfile from '../media/saad.jpg';
+import Team from '../media/team.svg';
+
+
 //Component Imports
 
 //////////////////////////////
