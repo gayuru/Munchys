@@ -53,10 +53,12 @@ function InfoDecoration(props) {
     <FixedContainer fluid>
       <Row>
         <CustomColumn background="#FFC0BE" radius="0px 50px 0px 0px">
+        <Link to="/about-us">
           <Image src={Developer} fluid />
           <ColText>
             About us
         </ColText>
+        </Link>
         </CustomColumn>
         <CustomColumn background="#D3F8E2" radius="50px 0px 0px 0px">
         <Link to="/saved-recipes">

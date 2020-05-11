@@ -33,19 +33,7 @@ margin:0px 15px 5px 0px;
 height:30px
 `
 
-const IngredientText = styled.h2`
-font-size: 38px;
-margin-top:2vh;
-`
-const BadgeCustom = styled(Badge)`
-padding: 1vw 3vw 1vw 3vw;
-margin-left:2vw;
-background: #FFC0BE;
-color: #000000;
-font-size: 20px;
-font-style: normal;
-font-weight: normal;
-`
+
 const RecipeHeading = styled.h2`
 margin-top:2vh;
 font-style: normal;
