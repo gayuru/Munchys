@@ -1,26 +1,21 @@
 //Login.js
 ///////////////////////////////
 //React & Material
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import React, { useState } from 'react';
-import {
-  Link,
-  withRouter,
-} from "react-router-dom";
-//Plugins
-import styled from 'styled-components';
-import Form from 'react-bootstrap/Form';
-
+import Button from 'react-bootstrap/Button';
 // import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-
-//Component Imports
-import API from "../utils/api";
+import Form from 'react-bootstrap/Form';
+import { useForm } from 'react-hook-form';
+import { Link, withRouter } from "react-router-dom";
+//Plugins
+import styled from 'styled-components';
 import auth from "../utils/auth";
-import { useForm } from 'react-hook-form'
-
 import UserPool from '../utils/UserPool';
-import {CognitoUserAttribute} from 'amazon-cognito-identity-js';
+
+
+
 //////////////////////////////
 //Styled components
 const StyledLink = styled(Link)`
@@ -58,11 +53,7 @@ const BackButton = styled(Button)`
 const CustomFormLabel = styled(Form.Label)`
   float:left;
 `
-const CustomMessage = styled.p`
-  float:left;
-  color: rgba(0, 0, 0, 0.31);
-  
-`
+
 const Spacer = styled.div`
   height: ${props => props.height};
 `
@@ -73,7 +64,7 @@ const Spacer = styled.div`
  */
 function Register(props) {
 
-  const { register, handleSubmit, reset, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm()
   const [registererror, setRegistererror] = useState();
 
 

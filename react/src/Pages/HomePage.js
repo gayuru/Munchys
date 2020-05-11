@@ -1,16 +1,16 @@
 //Dashboard.js
 ///////////////////////////////
 //React & Material
-import React, { useEffect, useState } from 'react';
-import API from '../utils/api'
+import React from 'react';
+import { Container, Image, Row } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import Typing from 'react-typing-animation';
 //Plugins
 import styled from 'styled-components';
-import { Container, Row, Image, Col } from 'react-bootstrap';
-import logo from '../media/logo-coloured.svg'
-import backgroundImage from '../media/background.jpg'
-import Typing from 'react-typing-animation';
 import InfoDecoration from '../Components/InfoDecoration';
 import IngredientSection from '../Components/IngredientSection';
+import backgroundImage from '../media/background.jpg';
+import logo from '../media/logo-coloured.svg';
 
 //Component Imports
 
@@ -64,12 +64,12 @@ const Graphic = styled.div`
 position: absolute;
 width: 606px;
 height: 1012px;
-    top: 0px;
-    right: 0px;
+top: 0px;
+right: 0px;
 z-index:-1;
 background: url(${backgroundImage})100% no-repeat;
 background-size: cover;
-    background-position: center; 
+background-position: center; 
 box-shadow: 1px -7px 53px rgba(0, 0, 0, 0.1);
 border-radius: 0px 0px 0px 141px;
 `
@@ -80,10 +80,13 @@ border-radius: 0px 0px 0px 141px;
  */
 function HomePage(props) {
   
+
   return (
     <Container>
       <Row>
-        <Logo src={logo} />
+          <Link to="/home">
+            <Logo src={logo} />
+          </Link>
         <Graphic />
       </Row>
       <CustomRow top="10vh">

@@ -1,22 +1,21 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useState,useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Col, Container, Image, Row } from 'react-bootstrap';
+import { Link, useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
+import GridGenerator from '../Components/GridGenerator';
+import Recipe from '../Components/SingleRecipe';
+import Back from '../media/back.svg';
 import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
-import heartUnlike from '../media/heart-unliked.svg';
 import logo from '../media/logo-coloured.svg';
-import GridGenerator from '../Components/GridGenerator';
-import Back from '../media/back.svg';
-import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
-import { Link, useHistory } from "react-router-dom";
+import { trackPromise } from 'react-promise-tracker';
 
 const axios = require('axios').default;
-
 //////////////////////////////
 //Styled components
 const Logo = styled(Image)`
@@ -86,6 +85,7 @@ function RecipesPage(props) {
 
 
     useEffect(() => {
+      trackPromise(
       axios.post('/recipe', ingredients)
       .then(function (response) {
         console.log(localStorage.getItem('ingredients'))
@@ -93,7 +93,7 @@ function RecipesPage(props) {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }));
       
     }, [window.location.pathname])
 
@@ -111,9 +111,9 @@ function RecipesPage(props) {
       return (
         recipeData.map((x) =>
           <div>
-            <CustomLink to={`/recipe/${x.id}`}>
+            {/* <CustomLink to={`/recipe/${x.id}`}> */}
             <Recipe data={x} />
-            </CustomLink>
+            {/* </CustomLink> */}
           </div>
         )
       )
@@ -122,10 +122,14 @@ function RecipesPage(props) {
       <Container>
         <Row>
           <Col>
+          <Link to="/home">
             <Logo src={logo} />
+          </Link>
           </Col>
           <Col>
-            <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
+          <Link to="/saved-recipes">
+            <Heart src={heart} />
+          </Link>
           </Col>
         </Row>
         <Row>
@@ -158,32 +162,38 @@ function RecipesPage(props) {
     const user = Pool.getCurrentUser();
     console.log(user.username)
     useEffect(() => {
+      trackPromise(
       axios.get(`/fav-recipes?userId=${user.username}`)
         .then(function (response) {
+          
           const data = JSON.parse(response.data.body)
+          console.log(data)
           setrecipeData(data)
         })
         .catch(function (error) {
           console.log(error);
-        });
+        }));
     }, [window.location.pathname])
-
-
 
     function renderRecipes() {
       return (
         recipeData.map((x) =>
           <div>
+            {/* <CustomLink to={`/recipe/${x.id}`}> */}
             <Recipe data={x} />
+            {/* </CustomLink> */}
           </div>
         )
       )
     }
+
     return (
       <Container>
         <Row>
           <Col>
+          <Link to="/home">
             <Logo src={logo} />
+          </Link>
           </Col>
         </Row>
         <Row>

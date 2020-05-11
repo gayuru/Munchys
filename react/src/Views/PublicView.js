@@ -1,20 +1,20 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-
-import {
-    withRouter
-} from 'react-router-dom'
-
+import React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 //Plugins
 import styled from 'styled-components';
-import LoginPage from "../Pages/LoginPage";
-
-import { ProtectedRoute } from '../Components/ProtectedRoute';
 import { NotFound } from '../Components/NotFound';
-import { Account } from '../utils/Account';
+import { ProtectedRoute } from '../Components/ProtectedRoute';
 import HomePage from '../Pages/HomePage';
-import RecipesPage from '../Pages/RecipesPage';
+import LoginPage from "../Pages/LoginPage";
+import RandomRecipePage from '../Pages/RandomRecipePage';
 import Recipe from '../Pages/Recipe';
+import RecipesPage from '../Pages/RecipesPage';
+import RecommendedPage from '../Pages/RecommenedPage';
+import { Account } from '../utils/Account';
+import AboutUsPage from '../Pages/AboutUsPage';
+
+
+
 
 const Container = styled.div`
   min-height:100%;
@@ -32,6 +32,9 @@ function PublicView(props) {
           <ProtectedRoute exact path='/recipes'  component={RecipesPage} />
           <ProtectedRoute exact path='/saved-recipes'  component={RecipesPage} />
           <ProtectedRoute exact path='/recipe/:id'  component={Recipe} />
+          <ProtectedRoute exact path='/recommended' component={RecommendedPage}/>
+          <ProtectedRoute exact path='/taste-your-luck' component={RandomRecipePage}/>
+          <ProtectedRoute exact path='/about-us' component={AboutUsPage}/>
           <Route path="*" component={NotFound}/>
           </Switch>
           </Account>

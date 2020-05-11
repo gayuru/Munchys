@@ -1,26 +1,25 @@
 //Template.js
 ///////////////////////////////
 //React & Material
+import { Markup } from 'interweave';
 import React, { useEffect, useState } from 'react';
-
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { trackPromise } from 'react-promise-tracker';
+import { Link, useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import { Button, Col, Container, Image, Row } from 'react-bootstrap';
-//Plugins
-import Servings from '../media/servings.svg';
+import Back from '../media/back.svg';
 import Biology from '../media/biology.svg';
-import Vegan from '../media/vegan.svg';
+import Clock from '../media/clock-colored.svg';
 import Dish from '../media/dish.svg';
 import heart from '../media/heart.svg';
-import Clock from '../media/clock-colored.svg';
 import logo from '../media/logo-coloured.svg';
-import GridGenerator from '../Components/GridGenerator';
-import Back from '../media/back.svg';
+//Plugins
+import Servings from '../media/servings.svg';
+import Vegan from '../media/vegan.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
-import { Link, useHistory } from "react-router-dom";
-import { Markup } from 'interweave';
-import ReactPlayer from 'react-player'
+
 const axios = require('axios').default;
 
 //Component Imports
@@ -134,7 +133,6 @@ align-items: center;
 
 const MainRow = styled(Row)`
 margin-top:3vh;
-margin-bottom:1vh;
 `
 const IRow = styled(Row)`
 margin-top:1vh;
@@ -143,10 +141,6 @@ const IText = styled.label`
 font-weight: normal;
 font-size: 19px;
 `
-const LabelIngredient = styled.label`
-margin-left:1vw;
-`
-
 const CustomAudio = styled.audio`
 margin-top:1vh;
 .audio{
@@ -168,7 +162,8 @@ const CustomNutrition = styled.div`
  */
 function Recipe(props) {
 
-  const recipeId = props.match.params.id
+  const recipeId = props.match.params.id;
+  const [random,setRandom] = useState(false);
   const [recipe, setrecipe] = useState();
   const [fav,setFav] = useState("Favourite this ❤️")
   const [audioReady,setAudioReady] = useState(false);
@@ -194,8 +189,10 @@ function Recipe(props) {
 
   useEffect(() => {
 
-
-
+    if(props.location.state !== undefined){
+      setRandom(props.location.state.random);
+    }
+    
 
     function getRecipeDetails() {
       return axios.get(`/single-details?id=${recipeId}`);
@@ -205,21 +202,20 @@ function Recipe(props) {
       return axios.get(`/recipenutrition?id=${recipeId}`);
     }
 
-    axios.all([getRecipeDetails(), getNutrition()])
+    trackPromise(axios.all([getRecipeDetails(), getNutrition()])
       .then(
-        axios.spread((...responses) => {
+       axios.spread((...responses) => {
           const responseOne = responses[0];
           const responseTwo = responses[1];
 
           const recipeData = JSON.parse(responseOne.data)
           setrecipe(recipeData);
           setNutrition(responseTwo.data)
-          console.log(responseTwo.data)
           const speech={
             "RecipeName": recipeData.title,
             "text": recipeData.instructions
           }
-          console.log(speech)
+          
           axios.post('/texttospeech',speech)
           .then(function (response) {
             setAudioReady(true);
@@ -233,7 +229,7 @@ function Recipe(props) {
       ).catch(errors => {
         // react on errors.
         console.error(errors);
-      });
+      }));
 
   }, [window.location.pathname])
 
@@ -269,7 +265,7 @@ function Recipe(props) {
           </HeadingSection>
           <HeadingSection>
             <HeadingText>
-              <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link>
+              {random ? null :  <Link onClick={() => { history.push('/recipes') }}><GoBack src={Back} /></Link> }
               {recipe ? recipe.title : null}
             </HeadingText>
           </HeadingSection>
@@ -396,7 +392,9 @@ function Recipe(props) {
     <Container>
       <Row>
         <Col>
+        <Link to="/home">
           <Logo src={logo} />
+        </Link>
         </Col>
         <Col>
           <Heart onClick={() => history.push('/saved-recipes')} src={heart} />
