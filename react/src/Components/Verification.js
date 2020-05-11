@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
 import Pool from '../utils/UserPool';
@@ -29,17 +29,7 @@ width:100%;
   border-color: #FF82A9 !important;
 }
 `
-const BackButton = styled(Button)`
-  display:block;
-  color: #000000 !important;
-  border-color: #FFC0BE !important;
-  background-color: #FFFF !important;
-  width:100%;
 
-  &:hover {
-    border-color: #FF82A9 !important;
-  }
-`
 const CustomFormLabel = styled(Form.Label)`
   float:left;
 `

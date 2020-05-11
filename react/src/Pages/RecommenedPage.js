@@ -1,8 +1,8 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useEffect, useState } from 'react';
-import { Badge, Col, Container, Image, Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Col, Container, Image, Row } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
@@ -12,8 +12,6 @@ import Back from '../media/back.svg';
 import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
-import Pool from '../utils/UserPool';
-import { trackPromise } from 'react-promise-tracker';
 
 const axios = require('axios').default;
 //////////////////////////////

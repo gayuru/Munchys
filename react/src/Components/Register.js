@@ -53,11 +53,7 @@ const BackButton = styled(Button)`
 const CustomFormLabel = styled(Form.Label)`
   float:left;
 `
-const CustomMessage = styled.p`
-  float:left;
-  color: rgba(0, 0, 0, 0.31);
-  
-`
+
 const Spacer = styled.div`
   height: ${props => props.height};
 `
@@ -68,7 +64,7 @@ const Spacer = styled.div`
  */
 function Register(props) {
 
-  const { register, handleSubmit, reset, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm()
   const [registererror, setRegistererror] = useState();
 
 

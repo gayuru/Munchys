@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { Button, Container, Image, Row } from 'react-bootstrap';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import Arrow from '../media/arrow.svg';
 import GridGenerator from './GridGenerator';
+import { AccountContext } from '../utils/Account';
 
 const axios = require('axios').default;
 
@@ -98,6 +99,27 @@ color: #000000;
 }
 `
 
+const LogoutButton = styled(Button)`
+border: 2px solid  #D3F8E2;
+box-sizing: border-box;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.13);
+ font-size: 25px;
+ padding: 0px 20px;
+// line-height: 37px;
+// width: 334px;
+margin-top:2vh;
+height: 70px;
+background-color: #D3F8E2;
+background-repeat:no-repeat;
+color: #000000;
+
+&:hover,&:focus,&:active{
+  color: black !important;
+  background-color: #6DFFA8; !important;
+  border-color: #6DFFA8; !important;
+}
+`
+
 const ArrowImage = styled(Image)`
 margin-left:1vw;
 `
@@ -112,6 +134,8 @@ function IngredientSection(props) {
   const [ingredients, setIngredients] = useState([""])
   const [selectedIngredients, setSelectedIngredients] = useState([])
   
+  const { logout } = useContext(AccountContext);
+
   let history = useHistory();
   
   useEffect(() => {
@@ -193,6 +217,9 @@ function IngredientSection(props) {
     history.push('/recipes');
   }
 
+  const handleLog = () =>{
+    logout();
+  }
   const recipeButton = () =>{
     return (
       <div>
@@ -247,6 +274,12 @@ function IngredientSection(props) {
       </GridGenerator>
       </Row>
       {selectedIngredients.length ? recipeButton(): null}
+      <Row>
+      <LogoutButton onClick={handleLog}>
+      Log out 
+      </LogoutButton>
+      </Row>
+     
     </CustomContainer>
   )
 }

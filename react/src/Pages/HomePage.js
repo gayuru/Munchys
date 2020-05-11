@@ -11,6 +11,7 @@ import InfoDecoration from '../Components/InfoDecoration';
 import IngredientSection from '../Components/IngredientSection';
 import backgroundImage from '../media/background.jpg';
 import logo from '../media/logo-coloured.svg';
+
 //Component Imports
 
 //////////////////////////////
@@ -79,6 +80,7 @@ border-radius: 0px 0px 0px 141px;
  */
 function HomePage(props) {
   
+
   return (
     <Container>
       <Row>
