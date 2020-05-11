@@ -1,14 +1,14 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useState} from 'react';
+import React, { useState } from 'react';
+import { Col, Container, Image, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import { Link, useHistory } from "react-router-dom";
-import { Container, Image, Row, Col, Badge,Button, OverlayTrigger,Tooltip} from 'react-bootstrap';
-import Clock from '../media/clock.svg'
-import heartUnlike from '../media/heart-unliked.svg'
-import heart from '../media/heart.svg'
+import Clock from '../media/clock.svg';
+import heartUnlike from '../media/heart-unliked.svg';
+import heart from '../media/heart.svg';
 import Pool from '../utils/UserPool';
 const axios = require('axios').default;
 
@@ -65,19 +65,6 @@ float:right;
 width:1.6vw;
 `
 
-const HeartButton = styled(Button)`
-background:none;
-border:none;
-
-&:hover,&:focus,&:active,&:visited,&:link{
-  color: none !important;
-  background-color: none; !important;
-  background:none;
-  border:none;
-  border-color: none; !important;
-  outline: 0 !important;
-}
-`
 const InfoRow = styled(Row)`
 margin-top:3vh;
 // padding:10px;
@@ -134,7 +121,7 @@ text-decoration: none;
  */
 function SingleRecipe(props) {
 
-  const [recipe, setrecipe] = useState(props.data)
+  const [recipe] = useState(props.data)
   const [likeButton,setLikeButton] = useState(heartUnlike)
   function ValidString(x){
     var dotPosition = x.indexOf(".");

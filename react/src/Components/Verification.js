@@ -1,34 +1,20 @@
 //Login.js
 ///////////////////////////////
 //React & Material
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import React, { useState } from 'react';
-import {
-  Link,
-  withRouter,
-} from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useForm } from 'react-hook-form';
+import { Link, withRouter } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import Form from 'react-bootstrap/Form';
-
-// import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-
-//Component Imports
-import API from "../utils/api";
-import auth from "../utils/auth";
-import { useForm } from 'react-hook-form'
 import Pool from '../utils/UserPool';
-import {CognitoUser} from 'amazon-cognito-identity-js';
+
+
 //////////////////////////////
 //Styled components
-const StyledLink = styled(Link)`
-  text-decoration: none;
 
-  &:focus, &:hover, &:visited, &:link, &:active {
-      text-decoration: none;
-  }
-`
 const AccountButton = styled(Button)`
 display:block;
 color: #000000 !important;

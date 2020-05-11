@@ -1,9 +1,8 @@
+import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 import React, { createContext } from 'react';
-import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import Pool from '../utils/UserPool';
 import { useHistory } from "react-router-dom";
 import auth from '../utils/auth';
-import AWS from 'aws-sdk/global';
+import Pool from '../utils/UserPool';
 
 const AccountContext = createContext();
 

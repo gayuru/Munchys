@@ -65,8 +65,8 @@ Modal.setAppElement('#root')
  * Displays a template component
  */
 function Loading(props) {
-  const [done, setDone] = useState()
-  const [modalIsOpen,setIsOpen] = React.useState(true);
+  const [done] = useState()
+  const [modalIsOpen] = React.useState(true);
   const { promiseInProgress } = usePromiseTracker();
   const defaultOptions = {
     loop: true,

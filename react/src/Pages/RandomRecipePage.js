@@ -2,7 +2,7 @@
 ///////////////////////////////
 //React & Material
 import React, { useEffect, useState } from 'react';
-import { Container, Image, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 import { useHistory } from "react-router-dom";

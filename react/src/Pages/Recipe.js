@@ -4,6 +4,7 @@
 import { Markup } from 'interweave';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { trackPromise } from 'react-promise-tracker';
 import { Link, useHistory } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
@@ -19,7 +20,6 @@ import Vegan from '../media/vegan.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
 
-import { trackPromise } from 'react-promise-tracker';
 const axios = require('axios').default;
 
 //Component Imports
@@ -141,10 +141,6 @@ const IText = styled.label`
 font-weight: normal;
 font-size: 19px;
 `
-const LabelIngredient = styled.label`
-margin-left:1vw;
-`
-
 const CustomAudio = styled.audio`
 margin-top:1vh;
 .audio{

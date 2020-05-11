@@ -110,7 +110,6 @@ function IngredientSection(props) {
 
   const [popularIngredients, setPopularIngredients] = useState([""])
   const [ingredients, setIngredients] = useState([""])
-  const [showResults, setShowResults] = useState(false)
   const [selectedIngredients, setSelectedIngredients] = useState([])
   
   let history = useHistory();
@@ -145,7 +144,7 @@ function IngredientSection(props) {
   }, [window.location.pathname])
 
   function getFoodItem(x) {
-    const index = selectedIngredients.find(y => y.IngredientName == x.IngredientName) 
+    const index = selectedIngredients.find(y => y.IngredientName === x.IngredientName) 
     if (index === undefined) {
       const ingredients = [...selectedIngredients, x]; // new array need to update
       setSelectedIngredients(ingredients); // update the state
@@ -170,7 +169,7 @@ function IngredientSection(props) {
         </Overlay>
         <FoodText>
           {name}
-          {selectedIngredients.find(x => x.IngredientName == name) ? " ✅" : null}
+          {selectedIngredients.find(x => x.IngredientName === name) ? " ✅" : null}
         </FoodText>
       </Flex>
     )
@@ -190,13 +189,7 @@ function IngredientSection(props) {
     console.log(selectedIngredients)
     // localStorage.removeItem('ingredients');
     localStorage.setItem('ingredients', JSON.stringify(selectedIngredients));
- 
-  // getter
 
-  
-  // remove
-  
-    const dataPass = [selectedIngredients]
     history.push('/recipes');
   }
 
