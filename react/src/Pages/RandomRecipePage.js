@@ -102,7 +102,7 @@ function RandomRecipePage(props) {
               )}
             {redirect && recipe ? history.push(`/recipe/${recipe.id}`,{random:true}) : null}
             <LoadingRow>
-              <HeadingAnimation>what's cooking today?</HeadingAnimation>
+              <HeadingAnimation>let us surprise you...</HeadingAnimation>
             </LoadingRow>
           </Container>
         </CustomCon>

@@ -108,7 +108,7 @@ function Loading(props) {
                 </Row>      
               )} 
               <LoadingRow>
-                <HeadingLoading>fetching your favourite recipes</HeadingLoading>
+                <HeadingLoading>what's cooking today ?</HeadingLoading>
               </LoadingRow>
               </Container>
               </CustomCon>
