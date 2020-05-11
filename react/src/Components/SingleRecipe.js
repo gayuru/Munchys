@@ -1,13 +1,14 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React,{useState} from 'react';
+import React, { useState } from 'react';
+import { Col, Container, Image, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 //Plugins
 import styled from 'styled-components';
-import { Container, Image, Row, Col, Badge,Button, OverlayTrigger,Tooltip} from 'react-bootstrap';
-import Clock from '../media/clock.svg'
-import heartUnlike from '../media/heart-unliked.svg'
-import heart from '../media/heart.svg'
+import Clock from '../media/clock.svg';
+import heartUnlike from '../media/heart-unliked.svg';
+import heart from '../media/heart.svg';
 import Pool from '../utils/UserPool';
 const axios = require('axios').default;
 
@@ -64,19 +65,6 @@ float:right;
 width:1.6vw;
 `
 
-const HeartButton = styled(Button)`
-background:none;
-border:none;
-
-&:hover,&:focus,&:active,&:visited,&:link{
-  color: none !important;
-  background-color: none; !important;
-  background:none;
-  border:none;
-  border-color: none; !important;
-  outline: 0 !important;
-}
-`
 const InfoRow = styled(Row)`
 margin-top:3vh;
 // padding:10px;
@@ -114,6 +102,18 @@ font-size: 17px;
 const CustomContainer = styled(Container)`
 // margin-right:10vw;
 `
+const CustomLink = styled(Link)`
+text-decoration: none;
+
+&:focus,  &:visited, &:link, &:active {
+    text-decoration: none;
+    color:black;
+}
+
+&:hover{
+  color:#7F95D1;
+}
+`
 //////////////////////////////
 //Component class
 /**
@@ -121,7 +121,7 @@ const CustomContainer = styled(Container)`
  */
 function SingleRecipe(props) {
 
-  const [recipe, setrecipe] = useState(props.data)
+  const [recipe] = useState(props.data)
   const [likeButton,setLikeButton] = useState(heartUnlike)
   function ValidString(x){
     var dotPosition = x.indexOf(".");
@@ -194,25 +194,31 @@ function SingleRecipe(props) {
   }
   return (
     <CustomContainer>
+        <CustomLink to={`/recipe/${recipe.id}`}>
       <CustomRow url={recipe ? recipe.image : " " }>
         <BadgeCustom pill variant="primary">
           <ClockImg src={Clock} /><Time>{recipe ? recipe.readyInMinutes : null} mins</Time>
         </BadgeCustom>
       </CustomRow>
+      </CustomLink>
       <BottomRow>
         <Container>
           <InfoRow>
             <Col xs={8}>
+            <CustomLink to={`/recipe/${recipe.id}`}>
               <RecipeName>
                 {recipe ? recipe.title : null}
              </RecipeName>
+             </CustomLink>
             </Col>
             <Col>
               {/* <HeartButton onClick={handleClick}> */}
                 <LikeButton onClick={()=>handleClick(recipe.id)} src={likeButton} />
                 {/* </HeartButton> */}
             </Col>
+            
           </InfoRow>
+          <CustomLink to={`/recipe/${recipe.id}`}>
           <CRow>
             <Summary>
             {recipe ? ValidString(recipe.summary) : null}
@@ -250,6 +256,7 @@ function SingleRecipe(props) {
               </SubHeading>
             </Col>
           </CRow>
+          </CustomLink>
           <Spacer height="2vh"/>
         </Container>
    

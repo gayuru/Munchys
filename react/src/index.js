@@ -5,10 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Loading from './Components/Loading.js'
 
 ReactDOM.render(
     <BrowserRouter>
         <App />
+        <Loading/>
     </BrowserRouter>
     ,
     document.getElementById('root')
