@@ -179,7 +179,9 @@ function RecipesPage(props) {
       return (
         recipeData.map((x) =>
           <div>
+            <CustomLink to={`/recipe/${x.id}`}>
             <Recipe data={x} />
+            </CustomLink>
           </div>
         )
       )
