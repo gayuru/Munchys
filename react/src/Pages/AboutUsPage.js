@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
+import GitHubButton from 'react-github-btn';
 //Plugins
 import styled from 'styled-components';
 
@@ -11,6 +12,7 @@ import Team from '../media/team.svg';
 import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import GayuruProfile from '../media/gayuru.jpg'
+import SaadProfile from '../media/saad.jpg'
 import { trackPromise } from 'react-promise-tracker';
 //Component Imports
 
@@ -48,6 +50,11 @@ const Spacer = styled.div`
 const Text = styled.text`
 white-space: pre-wrap;
 `
+
+const CustomText = styled.span`
+color:#7F95D1;
+font-weight:bold; 
+`
 //////////////////////////////
 //Component class
 /**
@@ -55,21 +62,21 @@ white-space: pre-wrap;
  */
 function AboutUsPage(props) {
 
-  const exampleFunction = () => {
-    return "My example";
-  }
-
   const MyProfile =(props)=>{
     return(
       <>
       <Col>
       <ProfileImage src={props.image} roundedCircle/>
       <NameHeading>
-          Hey I'm {props.name}
+          Hey I'm <CustomText>{props.name}</CustomText>
       </NameHeading>
       <Text>
         {props.intro}
       </Text>
+      <Spacer height="1vh"/>
+      <ImageRow>
+      <GitHubButton href={props.github} data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Follow @gayuru on GitHub">{`Follow @${props.githubName}`}</GitHubButton>
+      </ImageRow>
       </Col>
       </>
 
@@ -98,12 +105,18 @@ function AboutUsPage(props) {
     </ImageRow>
     <Spacer height="1vh"/>
     <ImageRow>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit,  <br/>tempor incididunt ut labore et dolore magna aliqua.mauris a diam.<br/> Proin libero nunc consequat interdum varius sit amet mattis.
+      We believe in 'we', tempor incididunt ut labo <br/>tempor incididunt ut labore et dolore magna aliqua.mauris a diam.<br/> Proin libero nunc consequat interdum varius sit amet mattis.
     </ImageRow>
     <Spacer height="3vh"/>
     <Row>
-      <MyProfile name="Gayuru" image={GayuruProfile}intro={`Hey I code for fun \n this is my lad`}/>
-      <MyProfile name="Saad"/>
+      <MyProfile name="Gayuru" image={GayuruProfile}intro={`\nI've been passionate about working with Front End designs \n  and how integration work with Cloud Services.\n
+      Hence I hope you found the design of Munchys, Simple and Minimalist. \n\n We spent a lot of time redefining the user experience and how well we can integrate cloud services efficiently.\n
+      Perhaps we used Spoonaculars' amazing API to give you all these fascinating recipes which you could try straight at home.`}
+      github="https://github.com/gayuru" githubName="gayuru"
+      />
+      <MyProfile name="Saad"  image={SaadProfile}intro={`Hey I code for fun \n this is my lad`}
+        github="https://github.com/S3717159" githubName="Saad Ali"
+      />
     </Row>
     </Container>
   )
