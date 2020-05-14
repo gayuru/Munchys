@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import * as doneData from "../media/done-animation.json";
 import * as foodData from "../media/food-carousel.json";
-
+import API from "../utils/api"
 
 const axios = require('axios').default;
 
@@ -68,7 +68,7 @@ function RandomRecipePage(props) {
   };
 
   useEffect(() => {
-    axios.get(`/tasteyourluck`)
+    API.get(`/tasteyourluck`)
       .then(function (response) {
         const data = response.data
         setRecipe(data)

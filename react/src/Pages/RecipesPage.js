@@ -14,6 +14,7 @@ import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import Pool from '../utils/UserPool';
 import { trackPromise } from 'react-promise-tracker';
+import API from "../utils/api"
 
 const axios = require('axios').default;
 //////////////////////////////
@@ -86,9 +87,10 @@ function RecipesPage(props) {
 
     useEffect(() => {
       trackPromise(
-      axios.post('/recipe', ingredients)
+        API.post('/recipe', ingredients)
       .then(function (response) {
         console.log(localStorage.getItem('ingredients'))
+        
         setrecipeData(JSON.parse(response.data.body));
       })
       .catch(function (error) {
@@ -163,7 +165,7 @@ function RecipesPage(props) {
     console.log(user.username)
     useEffect(() => {
       trackPromise(
-      axios.get(`/fav-recipes?userId=${user.username}`)
+        API.get(`/fav-recipes?userId=${user.username}`)
         .then(function (response) {
           
           const data = JSON.parse(response.data.body)

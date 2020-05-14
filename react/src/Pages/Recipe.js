@@ -19,6 +19,7 @@ import Servings from '../media/servings.svg';
 import Vegan from '../media/vegan.svg';
 // import Recipe from '../Components/SingleRecipe'
 import Pool from '../utils/UserPool';
+import API from "../utils/api"
 
 const axios = require('axios').default;
 
@@ -178,7 +179,7 @@ function Recipe(props) {
       "userId" :user.username,
       "recipeId": recipe.id
     }
-    axios.post('/fav-recipes', fav)
+    API.post('/fav-recipes', fav)
       .then(function (response) {
         setFav("Favourited 🥰")
       })
@@ -195,11 +196,11 @@ function Recipe(props) {
     
 
     function getRecipeDetails() {
-      return axios.get(`/single-details?id=${recipeId}`);
+      return API.get(`/single-details?id=${recipeId}`);
     }
 
     function getNutrition() {
-      return axios.get(`/recipenutrition?id=${recipeId}`);
+      return API.get(`/recipenutrition?id=${recipeId}`);
     }
 
     trackPromise(axios.all([getRecipeDetails(), getNutrition()])

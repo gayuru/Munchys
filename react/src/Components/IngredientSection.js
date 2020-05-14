@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import Arrow from '../media/arrow.svg';
 import GridGenerator from './GridGenerator';
 import { AccountContext } from '../utils/Account';
+import API from "../utils/api"
 
 const axios = require('axios').default;
 
@@ -145,11 +146,11 @@ function IngredientSection(props) {
     // });
   
     function getIngredients() {
-      return axios.get('/ingredients?isPopular=False');
+      return API.get('/ingredients?isPopular=False');
     }
 
     function getPopularIngredients() {
-      return axios.get('/ingredients?isPopular=True');
+      return API.get('/ingredients?isPopular=True');
     }
     trackPromise(axios.all([getIngredients(), getPopularIngredients()])
       .then(
