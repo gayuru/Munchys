@@ -100,11 +100,11 @@ function AboutUsPage(props) {
       <Image src={Team} fluid/>
     </ImageRow>
     <ImageRow>
-      <Heading>'We' is powerful.</Heading>
+      <Heading>Food is the 'Ingredient' that binds us togehter</Heading>
     </ImageRow>
     <Spacer height="1vh"/>
     <ImageRow>
-      We believe in 'we', tempor incididunt ut labo <br/>tempor incididunt ut labore et dolore magna aliqua.mauris a diam.<br/> Proin libero nunc consequat interdum varius sit amet mattis.
+      We believe food unites us a community <br/> Food like us is unique, every recipe is different, look different, smell different but best of all, they all taste delicious<br/> Join our community, and try the millions of tasty flavours the community has for you!
     </ImageRow>
     <Spacer height="3vh"/>
     <Row>
@@ -113,7 +113,9 @@ function AboutUsPage(props) {
       Perhaps we used Spoonaculars' amazing API to give you all these fascinating recipes which you could try straight at home.`}
       github="https://github.com/gayuru" githubName="gayuru"
       />
-      <MyProfile name="Saad"  image={SaadProfile}intro={`Hey I code for fun \n this is my lad`}
+      <MyProfile name="Saad"  image={SaadProfile}intro={`\nI've been motivated about to learn and work with AWS's Cloud functionalities \n  and learning concepts of beautiful design with my lad Gayuru\n
+      Hence I hope you found the functionalities and design of our site Fun and Enjoyable \n\n We spent a lot of time coming up with efficient algorithms to provide you all the best user experience\n
+      Credit should also be given to Spoonacular for providing us with such a simple API allowing us to give recipes to try anytime and anywhere`}
         github="https://github.com/S3717159" githubName="Saad Ali"
       />
     </Row>

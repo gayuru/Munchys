@@ -102,10 +102,11 @@ function HomePage(props) {
         <TextBox>
           <Typing speed={20}>
             <Subline>
-              Lorem ipsum dolor sit amet, <Blue>consectetur</Blue> adipiscing<br />
-       elit, sed do eiusmod tempor incididunt ut labore et<br />
-       dolore magna aliqua. <Blue>Ut enim</Blue> ad minim veniam,<br />
-        quis nostrud exercitation ullamco laboris <Blue>nisi ut.</Blue>
+              Have ingredients but are not sure what to cook? <Blue>don't you worry friend</Blue> Munchy is the solution for you<br />
+       Just enter the ingredients you have and discover the vast range of recipes you can cook!<br />
+       You will be informed of any missing ingredients before you can select recipe <Blue>So it's easier for you</Blue> 
+       and why not add recipes you love into favourites? <Blue>Save the delicacy for later</Blue> <br />
+        Enjoy the countless recipes and remember to <Blue>share your food</Blue>
             </Subline>
           </Typing>
         </TextBox>
