@@ -1,7 +1,7 @@
 //Template.js
 ///////////////////////////////
 //React & Material
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 //Plugins
@@ -12,6 +12,8 @@ import Back from '../media/back.svg';
 import Banner from '../media/banner.svg';
 import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
+import { trackPromise } from 'react-promise-tracker';
+import Pool from '../utils/UserPool';
 
 const axios = require('axios').default;
 //////////////////////////////
@@ -68,19 +70,20 @@ function RecommendedPage(props) {
   const RecipeView = () => {
     const [recipeData, setrecipeData] = useState([]);
 
-
-    // useEffect(() => {
-    //   trackPromise(
-    //   axios.post('/recipe', ingredients)
-    //   .then(function (response) {
-    //     // console.log(localStorage.getItem('ingredients'))
-    //     // setrecipeData(JSON.parse(response.data.body));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   }));
+    const user = Pool.getCurrentUser();
+    useEffect(() => {
+      trackPromise(
+      axios.get(`/what-is-popular?userId=${user.username}`)
+      .then(function (response) {
+        console.log(response.data)
+        // console.log(localStorage.getItem('ingredients'))
+        setrecipeData(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      }));
       
-    // }, [window.location.pathname])
+    }, [window.location.pathname])
 
 
     function renderRecipes() {
