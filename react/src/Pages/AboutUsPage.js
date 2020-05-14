@@ -104,9 +104,9 @@ function AboutUsPage(props) {
     </ImageRow>
     <Spacer height="1vh"/>
     <ImageRow>
-      We believe food unites us a community <br/> Food like us is unique, every recipe is different, look different, smell different but best of all, they all taste delicious<br/> Join our community, and try the millions of tasty flavours the community has for you!
+      We believe food unites us a community <br/> Food like us is unique, every recipe is different, look different, smell different but best of all, they all taste delicious<br/> Join our community, and try the millions of tasty flavours the community has for you !
     </ImageRow>
-    <Spacer height="3vh"/>
+    <Spacer height="5vh"/>
     <Row>
       <MyProfile name="Gayuru" image={GayuruProfile}intro={`\nI've been passionate about working with Front End designs \n  and how integration work with Cloud Services.\n
       Hence I hope you found the design of Munchys, Simple and Minimalist. \n\n We spent a lot of time redefining the user experience and how well we can integrate cloud services efficiently.\n
@@ -119,6 +119,7 @@ function AboutUsPage(props) {
         github="https://github.com/S3717159" githubName="Saad Ali"
       />
     </Row>
+    <Spacer height="5vh"/>
     </Container>
   )
 }
