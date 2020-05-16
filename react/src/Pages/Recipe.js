@@ -216,7 +216,7 @@ function Recipe(props) {
             "RecipeName": recipeData.title,
             "text": recipeData.instructions
           }
-          
+          console.log(responseTwo)
           API.post('/texttospeech',speech)
           .then(function (response) {
             setAudioReady(true);

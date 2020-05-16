@@ -101,7 +101,7 @@ function HomePage(props) {
       </CustomRow>
       <CustomRow top="15vh">
         <TextBox>
-          <Typing speed={5}>
+          <Typing speed={20}>
             <Subline>
               Have ingredients but are not sure what to cook? <br/><Blue>Don't you worry friend</Blue> Munchy is the solution for you!<br /><br/>
        Just enter the ingredients you have and discover the vast range of recipes you can cook!<br /><br/>
