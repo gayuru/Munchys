@@ -49,6 +49,7 @@ const InfoRow = styled(Row)`
 
 const TextBox = styled.div`
   margin-left:5vw;
+  width:500px;
   border-left:3px solid #7F95D1;
   padding:10px 10px 10px 15px;
 `
@@ -100,13 +101,12 @@ function HomePage(props) {
       </CustomRow>
       <CustomRow top="15vh">
         <TextBox>
-          <Typing speed={20}>
+          <Typing speed={5}>
             <Subline>
-              Have ingredients but are not sure what to cook? <Blue>don't you worry friend</Blue> Munchy is the solution for you<br />
-       Just enter the ingredients you have and discover the vast range of recipes you can cook!<br />
-       You will be informed of any missing ingredients before you can select recipe <Blue>So it's easier for you</Blue> 
-       and why not add recipes you love into favourites? <Blue>Save the delicacy for later</Blue> <br />
-        Enjoy the countless recipes and remember to <Blue>share your food</Blue>
+              Have ingredients but are not sure what to cook? <br/><Blue>Don't you worry friend</Blue> Munchy is the solution for you!<br /><br/>
+       Just enter the ingredients you have and discover the vast range of recipes you can cook!<br /><br/>
+     
+        Enjoy the countless recipes and remember to <Blue>share your food !</Blue>
             </Subline>
           </Typing>
         </TextBox>
@@ -114,7 +114,7 @@ function HomePage(props) {
       <InfoRow top="10vh">
         <InfoDecoration />
       </InfoRow>
-      <CustomRow top="40vh">
+      <CustomRow top="50vh">
       <IngredientSection/>
       </CustomRow>
 
