@@ -10,6 +10,7 @@ import Clock from '../media/clock.svg';
 import heartUnlike from '../media/heart-unliked.svg';
 import heart from '../media/heart.svg';
 import Pool from '../utils/UserPool';
+import API from "../utils/api"
 const axios = require('axios').default;
 
 //Component Imports
@@ -148,7 +149,7 @@ function SingleRecipe(props) {
       "userId" :user.username,
       "recipeId": id
     }
-    axios.post('/fav-recipes', fav)
+    API.post('/fav-recipes', fav)
       .then(function (response) {
         console.log(response.data)
       })
