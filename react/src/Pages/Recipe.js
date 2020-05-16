@@ -208,10 +208,10 @@ function Recipe(props) {
        axios.spread((...responses) => {
           const responseOne = responses[0];
           const responseTwo = responses[1];
-
-          const recipeData = JSON.parse(responseOne.data)
+          const recipeData = responseOne.data
           setrecipe(recipeData);
-          setNutrition(responseTwo.data)
+          setNutrition(responseTwo.data);
+
           const speech={
             "RecipeName": recipeData.title,
             "text": recipeData.instructions
