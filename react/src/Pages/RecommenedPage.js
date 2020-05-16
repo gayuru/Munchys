@@ -14,8 +14,8 @@ import heart from '../media/heart.svg';
 import logo from '../media/logo-coloured.svg';
 import { trackPromise } from 'react-promise-tracker';
 import Pool from '../utils/UserPool';
+import API from "../utils/api"
 
-const axios = require('axios').default;
 //////////////////////////////
 //Styled components
 const Logo = styled(Image)`
@@ -73,7 +73,7 @@ function RecommendedPage(props) {
     const user = Pool.getCurrentUser();
     useEffect(() => {
       trackPromise(
-      axios.get(`/what-is-popular?userId=${user.username}`)
+      API.get(`/what-is-popular?userId=${user.username}`)
       .then(function (response) {
         console.log(response.data)
         // console.log(localStorage.getItem('ingredients'))
