@@ -1,5 +1,5 @@
 # 🍣 **Munchys** 🍭
---
+
 The time spent, searching for a possible recipe you can cook can 'eat up' your motivation to cook, or even 'overcook' your passion for it.  People can spend ridiculous amount of time searching for a recipe with the items they currently have in their pantries.  Yet they will struggle to find a descent recipe which will satisfy their taste buds. A lot of the household ingredients which is in the fridge ends up being thrown away as one couldn't find a suitable recipe to fit in all the 'old' ingredients in the fridge.  
 
 We've come up with a solution to this by thinking of how to address all the above factors.
